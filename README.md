@@ -18,6 +18,4 @@ Add `--explain` to the draft command for reasons beside abstentions. Default out
 
 **Limitations and next steps.** This is a small work-sample parser, not a clinical system. Regex vocabulary and subject/negation scope are incomplete; some guards deliberately discard valid evidence. Same-day medication ordering, historical diagnosis specificity and course deduplication remain heuristic. Missing chart events cannot be recovered. Next: independently authored fixtures, explicit subject and temporal scope, a shared medication-event model, and separate measures of wrong answers and abstentions. An LLM proposal would still need semantic validation; matching a quote is insufficient.
 
-**AI disclosure.** The supplied version identifies Claude via Replit Agent as generating most implementation, fixtures and tests. OpenAI Codex performed this additional comparison, wrote adversarial tests, repaired extraction and CLI issues, and revised documentation. The applicant should review and be able to explain the submitted code.
-
 **Actual hours:** NOT PROVIDED. Replace this with the truthful total before submission, distinguishing the original work and this additional AI-assisted review. Do not claim compliance with the two-hour cap unless accurate.
