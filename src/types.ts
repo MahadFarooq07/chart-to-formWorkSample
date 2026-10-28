@@ -7,6 +7,8 @@ export interface FieldDraft {
   value: string | number | boolean | null;
   citations: Citation[];
   computation: Computation | null;
+  /** Only present with --explain: why the field abstained (or what the physician should look at). */
+  note?: string;
 }
 export interface Doc { doc_id: string; date: string; type: string; author_role: string; text: string }
 export interface FormField { field_id: string; label: string; class: string; answer_type: string }
@@ -23,7 +25,10 @@ export interface Ctx {
 /** Extractors return a partial draft; the caller fills field_id and verifies quotes. */
 export type Result = Omit<FieldDraft, 'field_id'>;
 
-export const notDocumented = (): Result => ({ status: 'NOT_DOCUMENTED', value: null, citations: [], computation: null });
-export const needsPhysician = (citations: Citation[] = []): Result => ({ status: 'NEEDS_PHYSICIAN', value: null, citations, computation: null });
+/** A blank, with the reason it is blank. The reason is what a physician would want to know. */
+export const notDocumented = (note = 'no explicit statement found in the chart'): Result =>
+  ({ status: 'NOT_DOCUMENTED', value: null, citations: [], computation: null, note });
+export const needsPhysician = (citations: Citation[] = [], note = 'physician-only field; never drafted'): Result =>
+  ({ status: 'NEEDS_PHYSICIAN', value: null, citations, computation: null, note });
 export const drafted = (value: FieldDraft['value'], citations: Citation[], computation: Computation | null = null): Result =>
   ({ status: 'DRAFTED', value, citations, computation });

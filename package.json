@@ -9,10 +9,12 @@
   "scripts": {
     "build": "tsc",
     "draft": "tsc && node dist/draft.js",
+    "explain": "tsc && node dist/draft.js --explain",
     "test": "tsc && node --test dist/draft.test.js",
     "grade:a": "node grader/grade.mjs --chart chart-A --expected expected/chart-A.expected.json --draft out/chart-A.draft.json",
     "grade:t": "node grader/grade.mjs --chart chart-T --expected expected/chart-T.expected.json --draft out/chart-T.draft.json",
-    "check": "npm run draft -- --chart chart-A --form form/F-DEMO-01.json --out out/chart-A.draft.json && node dist/draft.js --chart chart-T --form form/F-DEMO-01.json --out out/chart-T.draft.json && npm run -s grade:a && npm run -s grade:t"
+    "grade:v": "node grader/grade.mjs --chart chart-V --expected expected/chart-V.expected.json --draft out/chart-V.draft.json",
+    "check": "tsc && node scripts/check.mjs"
   },
   "devDependencies": {
     "typescript": "^5.6.0",

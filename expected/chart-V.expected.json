@@ -1,0 +1,120 @@
+{
+  "chart": "chart-V",
+  "form_date": "2026-11-15",
+  "fields": {
+    "patient_name": {
+      "status": "DRAFTED",
+      "value_includes": [
+        "variant",
+        "sam"
+      ],
+      "cite_any_of": [
+        "demographics"
+      ]
+    },
+    "phn": {
+      "status": "DRAFTED",
+      "value_equals": "SYNTH-PHN-0077",
+      "cite_any_of": [
+        "demographics"
+      ]
+    },
+    "date_of_birth": {
+      "status": "DRAFTED",
+      "value_equals": "1983-11-02",
+      "cite_any_of": [
+        "demographics"
+      ]
+    },
+    "diagnosis": {
+      "status": "DRAFTED",
+      "value_includes": [
+        "severe eosinophilic asthma"
+      ],
+      "value_excludes": [
+        "rhinitis"
+      ],
+      "cite_any_of": [
+        "V08",
+        "V01"
+      ]
+    },
+    "respirologist_confirmed_within_24_months": {
+      "status": "DRAFTED",
+      "value_equals": true,
+      "cite_any_of": [
+        "V08"
+      ]
+    },
+    "blood_eosinophils_most_recent": {
+      "status": "DRAFTED",
+      "value_includes": [
+        "0.38",
+        "2026-08-11"
+      ],
+      "value_excludes": [
+        "0.72",
+        "0.61",
+        "0.9 "
+      ],
+      "cite_any_of": [
+        "V10"
+      ]
+    },
+    "systemic_steroid_courses_past_12_months": {
+      "status": "DRAFTED",
+      "value_equals": 2,
+      "cite_any_of": [
+        "V05",
+        "V09"
+      ]
+    },
+    "current_inhaled_therapy": {
+      "status": "DRAFTED",
+      "value_includes": [
+        "breo"
+      ],
+      "value_excludes": [
+        "symbicort",
+        "montelukast",
+        "prednisone"
+      ],
+      "cite_any_of": [
+        "V14",
+        "V13",
+        "V08"
+      ]
+    },
+    "prior_biologic_trial": {
+      "status": "DRAFTED",
+      "value_includes": [
+        "xolair",
+        "2024-05-20",
+        "2024-12-10",
+        "lack of response"
+      ],
+      "cite_any_of": [
+        "V02"
+      ]
+    },
+    "smoking_status": {
+      "status": "DRAFTED",
+      "value_includes": [
+        "quit smoking in January 2026"
+      ],
+      "value_excludes": [
+        "current smoker",
+        "husband"
+      ],
+      "cite_any_of": [
+        "V09"
+      ]
+    },
+    "inadequate_control_despite_high_dose_ics": {
+      "status": "NEEDS_PHYSICIAN"
+    },
+    "requested_dose_regimen": {
+      "status": "NEEDS_PHYSICIAN"
+    }
+  }
+}

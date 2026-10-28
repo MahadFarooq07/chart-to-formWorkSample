@@ -1,0 +1,107 @@
+[
+ {
+  "doc_id": "V01",
+  "date": "2024-05-06",
+  "type": "consult_letter",
+  "author_role": "respirologist",
+  "text": "Respirology consultation. Spirometry: FEV1 61% predicted with 18% bronchodilator reversibility. Impression: 1. Severe eosinophilic asthma. 2. Allergic rhinitis. Plan: Xolair, first dose May 20, 2024."
+ },
+ {
+  "doc_id": "V02",
+  "date": "2024-12-18",
+  "type": "consult_letter",
+  "author_role": "respirologist",
+  "text": "Respirology follow-up. Xolair was started on May 20, 2024 and discontinued on December 10, 2024 for lack of response. Continue Symbicort 200/6 mcg two puffs twice daily."
+ },
+ {
+  "doc_id": "V03",
+  "date": "2025-01-15",
+  "type": "clinic_note",
+  "author_role": "family_physician",
+  "text": "Annual review. Medication reconciliation: Symbicort 200/6 mcg 2 puffs BID; Ventolin HFA 100 mcg 2 puffs q4h prn; montelukast 10 mg qhs; cetirizine 10 mg daily. Smoker, about half a pack per day."
+ },
+ {
+  "doc_id": "V04",
+  "date": "2025-10-02",
+  "type": "clinic_note",
+  "author_role": "family_physician",
+  "text": "Acute exacerbation of asthma. Pred 50 mg daily x 5 days."
+ },
+ {
+  "doc_id": "V05",
+  "date": "2025-11-20",
+  "type": "ed_note",
+  "author_role": "emergency_physician",
+  "text": "Presented with acute asthma. Received hydrocortisone 200 mg IV, then discharged on prednisone 50 mg PO daily for 5 days."
+ },
+ {
+  "doc_id": "V06",
+  "date": "2025-11-24",
+  "type": "clinic_note",
+  "author_role": "family_physician",
+  "text": "ED follow-up. Finishing prednisone today, breathing improved. Asthma exacerbation resolving."
+ },
+ {
+  "doc_id": "V07",
+  "date": "2026-02-11",
+  "type": "clinic_note",
+  "author_role": "family_physician",
+  "text": "Contact dermatitis of both hands. Betamethasone 0.1% ointment BID for 2 weeks. Asthma: stable, no exacerbation."
+ },
+ {
+  "doc_id": "V08",
+  "date": "2026-03-30",
+  "type": "consult_letter",
+  "author_role": "respirologist",
+  "text": "Respirology reassessment. Diagnosis confirmed: severe eosinophilic asthma, on repeat spirometry with bronchodilator reversibility. Despite high-dose ICS/LABA, remains poorly controlled. Stepped up from Symbicort 200/6 to Breo Ellipta 200/25 mcg one inhalation once daily. Eosinophils 0.61 x10⁹/L on bloodwork drawn 2026-03-20."
+ },
+ {
+  "doc_id": "V09",
+  "date": "2026-06-09",
+  "type": "clinic_note",
+  "author_role": "family_physician",
+  "text": "Asthma flare after a chest cold; prednisone 50 mg daily for 5 days prescribed. Patient reports she quit smoking in January 2026 after 15 pack-years; husband still smokes on the balcony."
+ },
+ {
+  "doc_id": "V10",
+  "date": "2026-08-14",
+  "type": "lab_report",
+  "author_role": "laboratory",
+  "text": "CBC with differential. Specimen collected: 2026-08-11 07:40. Reported: 2026-08-14. Eosinophils 0.38 x 10^9/L (ref 0.0-0.5)."
+ },
+ {
+  "doc_id": "V11",
+  "date": "2026-09-02",
+  "type": "lab_report",
+  "author_role": "laboratory",
+  "text": "Duplicate copy of earlier report. Specimen collected: 2025-12-03. Eosinophils 0.72 x 10^9/L."
+ },
+ {
+  "doc_id": "V12",
+  "date": "2026-09-15",
+  "type": "clinic_note",
+  "author_role": "family_physician",
+  "text": "Gout flare, right first MTP joint. Prednisone 30 mg daily x 5 days. Asthma remains symptomatic; no exacerbation today."
+ },
+ {
+  "doc_id": "V13",
+  "date": "2026-10-06",
+  "type": "clinic_note",
+  "author_role": "family_physician",
+  "text": "Reviewed inhaler technique. Continues Breo Ellipta 200/25 mcg one inhalation daily with good adherence. Asked about Drug Z; re-referred to respirology. Note: previous chart listed DOB 1983-02-11 in error."
+ },
+ {
+  "doc_id": "V14",
+  "date": "2026-10-28",
+  "type": "medication_list",
+  "author_role": "pharmacy",
+  "text": "Dispensed/active: Breo Ellipta 200/25 mcg, 1 inhalation once daily\nVentolin HFA 100 mcg, 2 puffs as needed\nmontelukast 10 mg at bedtime\nprednisone 50 mg (completed 2026-06-13)"
+ },
+ {
+  "doc_id": "V15",
+  "date": "2026-11-20",
+  "type": "clinic_note",
+  "author_role": "family_physician",
+  "text": "Smoking relapse reported. Eosinophils 0.9 x10^9/L collected 2026-11-18."
+ }
+]
