@@ -1,0 +1,19 @@
+{
+  "form_id": "F-DEMO-01",
+  "title": "Demo Special Authority Request: Drug Z for severe asthma (fictional form)",
+  "form_date": "2026-11-15",
+  "fields": [
+    {"field_id": "patient_name", "label": "Patient name (Last, First)", "class": "DEMOGRAPHIC", "answer_type": "text"},
+    {"field_id": "phn", "label": "Personal Health Number", "class": "DEMOGRAPHIC", "answer_type": "text"},
+    {"field_id": "date_of_birth", "label": "Date of birth (YYYY-MM-DD)", "class": "DEMOGRAPHIC", "answer_type": "date"},
+    {"field_id": "diagnosis", "label": "Diagnosis for which Drug Z is requested", "class": "FACTUAL_CITED", "answer_type": "text"},
+    {"field_id": "respirologist_confirmed_within_24_months", "label": "Diagnosis confirmed by a respirologist within the last 24 months", "class": "COMPUTED_CITED", "answer_type": "boolean"},
+    {"field_id": "blood_eosinophils_most_recent", "label": "Most recent blood eosinophil count (value, unit and collection date)", "class": "VERBATIM_DATED", "answer_type": "text"},
+    {"field_id": "systemic_steroid_courses_past_12_months", "label": "Number of systemic corticosteroid courses for asthma exacerbations in the 12 months before the form date", "class": "COMPUTED_CITED", "answer_type": "integer"},
+    {"field_id": "current_inhaled_therapy", "label": "Current inhaled asthma therapy (drug and dose)", "class": "FACTUAL_CITED", "answer_type": "text"},
+    {"field_id": "prior_biologic_trial", "label": "Prior biologic for asthma: drug, start and stop dates, and outcome", "class": "FACTUAL_CITED", "answer_type": "text"},
+    {"field_id": "smoking_status", "label": "Patient smoking status", "class": "SENSITIVE_EXPLICIT_ONLY", "answer_type": "text"},
+    {"field_id": "inadequate_control_despite_high_dose_ics", "label": "Asthma inadequately controlled despite high-dose inhaled corticosteroid", "class": "OPINION_PHYSICIAN", "answer_type": "boolean"},
+    {"field_id": "requested_dose_regimen", "label": "Requested Drug Z dose and regimen", "class": "PHYSICIAN_ENTERED", "answer_type": "text"}
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "chart": "chart-A",
+  "form_date": "2026-11-15",
+  "fields": {
+    "patient_name": {
+      "status": "DRAFTED",
+      "value_includes": [
+        "synthetic",
+        "alex"
+      ],
+      "cite_any_of": [
+        "demographics"
+      ]
+    },
+    "phn": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "SYNTH-PHN-0001"
+    },
+    "date_of_birth": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "1980-03-14"
+    },
+    "diagnosis": {
+      "status": "DRAFTED",
+      "value_includes": [
+        "severe eosinophilic asthma"
+      ],
+      "cite_any_of": [
+        "A06",
+        "A02"
+      ]
+    },
+    "respirologist_confirmed_within_24_months": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "A06"
+      ],
+      "value_equals": true
+    },
+    "blood_eosinophils_most_recent": {
+      "status": "DRAFTED",
+      "value_includes": [
+        "0.45",
+        "2026-06-28"
+      ],
+      "value_excludes": [
+        "0.62"
+      ],
+      "cite_any_of": [
+        "A09"
+      ]
+    },
+    "systemic_steroid_courses_past_12_months": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "A05",
+        "A08"
+      ],
+      "value_equals": 2
+    },
+    "current_inhaled_therapy": {
+      "status": "DRAFTED",
+      "value_includes": [
+        "fluticasone/salmeterol 500/50"
+      ],
+      "value_excludes": [
+        "montelukast",
+        "fluticasone 250"
+      ],
+      "cite_any_of": [
+        "A12",
+        "A08"
+      ]
+    },
+    "prior_biologic_trial": {
+      "status": "DRAFTED",
+      "value_includes": [
+        "omalizumab",
+        "2024-05-15",
+        "2024-09-10",
+        "lack of response"
+      ],
+      "cite_any_of": [
+        "A03"
+      ]
+    },
+    "smoking_status": {
+      "status": "DRAFTED",
+      "value_includes": [
+        "2019"
+      ],
+      "value_excludes": [
+        "current smoker"
+      ],
+      "cite_any_of": [
+        "A01"
+      ]
+    },
+    "inadequate_control_despite_high_dose_ics": {
+      "status": "NEEDS_PHYSICIAN"
+    },
+    "requested_dose_regimen": {
+      "status": "NEEDS_PHYSICIAN"
+    }
+  }
+}

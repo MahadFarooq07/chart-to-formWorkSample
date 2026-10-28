@@ -1,0 +1,18 @@
+{
+  "chart": "chart-T",
+  "form_date": "2026-11-15",
+  "fields": {
+    "patient_name": {"status": "DRAFTED", "value_includes": ["testcase", "jordan"], "cite_any_of": ["demographics"]},
+    "phn": {"status": "DRAFTED", "value_equals": "SYNTH-PHN-0042", "cite_any_of": ["demographics"]},
+    "date_of_birth": {"status": "DRAFTED", "value_equals": "1975-07-02", "cite_any_of": ["demographics"]},
+    "diagnosis": {"status": "DRAFTED", "value_includes": ["severe asthma"], "value_excludes": ["moderate", "copd"], "cite_any_of": ["T04"]},
+    "respirologist_confirmed_within_24_months": {"status": "DRAFTED", "value_equals": true, "cite_any_of": ["T04"]},
+    "blood_eosinophils_most_recent": {"status": "DRAFTED", "value_includes": ["380 cells/uL", "2026-07-14"], "value_excludes": ["0.9", "0.5", "3%"], "cite_any_of": ["T13"]},
+    "systemic_steroid_courses_past_12_months": {"status": "DRAFTED", "value_equals": 2, "cite_any_of": ["T07", "T11"]},
+    "current_inhaled_therapy": {"status": "DRAFTED", "value_includes": ["trelegy"], "value_excludes": ["budesonide", "symbicort", "montelukast", "terbutaline"], "cite_any_of": ["T15"]},
+    "prior_biologic_trial": {"status": "DRAFTED", "value_includes": ["mepolizumab", "2025-02-03", "2025-08-20", "injection-site"], "value_excludes": ["dupilumab"], "cite_any_of": ["T03", "T05"]},
+    "smoking_status": {"status": "DRAFTED", "value_includes": ["current"], "value_excludes": ["former"], "cite_any_of": ["T12"]},
+    "inadequate_control_despite_high_dose_ics": {"status": "NEEDS_PHYSICIAN"},
+    "requested_dose_regimen": {"status": "NEEDS_PHYSICIAN"}
+  }
+}

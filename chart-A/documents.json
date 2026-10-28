@@ -1,0 +1,86 @@
+[
+  {
+    "doc_id": "A01",
+    "date": "2024-02-10",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma review. Poorly controlled despite current therapy. Current meds: fluticasone 250 mcg inhaler twice daily, salbutamol 100 mcg as needed. Patient quit smoking in 2019; mother still smokes at home. Referral to respirology sent."
+  },
+  {
+    "doc_id": "A02",
+    "date": "2024-05-03",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Respirology consultation. Spirometry shows reversible airflow obstruction. Impression: severe eosinophilic asthma. Plan: trial of omalizumab."
+  },
+  {
+    "doc_id": "A03",
+    "date": "2024-09-20",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Respirology follow-up. Omalizumab started 2024-05-15 and stopped 2024-09-10 due to lack of response. Continue inhaled therapy."
+  },
+  {
+    "doc_id": "A04",
+    "date": "2025-10-30",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma exacerbation with wheeze and cough. Prednisone 40 mg daily for 5 days."
+  },
+  {
+    "doc_id": "A05",
+    "date": "2025-12-02",
+    "type": "ed_note",
+    "author_role": "emergency_physician",
+    "text": "Emergency visit for asthma exacerbation. Nebulized salbutamol given. Discharged on prednisone 40 mg daily for 5 days."
+  },
+  {
+    "doc_id": "A06",
+    "date": "2026-01-20",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Respirology review. Diagnosis of severe eosinophilic asthma reconfirmed today. Remains symptomatic on high-dose inhaled corticosteroid with good technique and adherence."
+  },
+  {
+    "doc_id": "A07",
+    "date": "2026-02-18",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Gout flare, left first MTP joint. Prednisone 30 mg daily for 5 days. Asthma stable."
+  },
+  {
+    "doc_id": "A08",
+    "date": "2026-04-07",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma exacerbation after a viral upper respiratory infection. Prednisone 40 mg daily for 5 days. Switched from fluticasone 250 mcg to fluticasone/salmeterol 500/50 mcg one inhalation twice daily."
+  },
+  {
+    "doc_id": "A09",
+    "date": "2026-06-30",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Complete blood count. Collected 2026-06-28. Eosinophils 0.45 x10^9/L."
+  },
+  {
+    "doc_id": "A10",
+    "date": "2026-07-05",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Reprinted report. Complete blood count. Collected 2025-11-10. Eosinophils 0.62 x10^9/L."
+  },
+  {
+    "doc_id": "A11",
+    "date": "2026-09-12",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Patient asks about Drug Z. Re-referred to respirology to discuss biologic options. Old referral form on file lists PHN SYNTH-PHN-0009, which is incorrect."
+  },
+  {
+    "doc_id": "A12",
+    "date": "2026-10-01",
+    "type": "medication_list",
+    "author_role": "pharmacy",
+    "text": "Active medications: fluticasone/salmeterol 500/50 mcg one inhalation twice daily; salbutamol 100 mcg as needed; montelukast 10 mg daily."
+  }
+]

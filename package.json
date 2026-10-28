@@ -1,0 +1,21 @@
+{
+  "name": "codex-worksample",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc",
+    "draft": "tsc && node dist/draft.js",
+    "test": "tsc && node --test dist/draft.test.js",
+    "grade:a": "node grader/grade.mjs --chart chart-A --expected expected/chart-A.expected.json --draft out/chart-A.draft.json",
+    "grade:t": "node grader/grade.mjs --chart chart-T --expected expected/chart-T.expected.json --draft out/chart-T.draft.json",
+    "check": "npm run draft -- --chart chart-A --form form/F-DEMO-01.json --out out/chart-A.draft.json && node dist/draft.js --chart chart-T --form form/F-DEMO-01.json --out out/chart-T.draft.json && npm run -s grade:a && npm run -s grade:t"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^20.14.0"
+  }
+}
