@@ -66,7 +66,21 @@ export function verify(r: Result, textOf: Map<string, string>): Result {
 export interface Options { explain?: boolean }
 
 export function draftForm(form: Form, docs: Doc[], demographics: Demographics, opts: Options = {}): FieldDraft[] {
+  if (!form || typeof form.form_id !== 'string' || !Array.isArray(form.fields) ||
+      form.fields.some(f => !f || typeof f.field_id !== 'string' || !f.field_id.trim() || typeof f.class !== 'string') ||
+      new Set(form.fields.map(f => f.field_id)).size !== form.fields.length)
+    throw new Error('form must contain a form_id and uniquely named fields with classes');
+  if (!Array.isArray(docs)) throw new Error('documents.json must contain an array');
+  if (!demographics || typeof demographics !== 'object' || Array.isArray(demographics))
+    throw new Error('demographics.json must contain an object');
   const formDate = isIsoDate(form.form_date) ? form.form_date : null;
+  const ids = new Set<string>();
+  const ambiguousIds = docs.some(d => {
+    if (!d || typeof d.doc_id !== 'string' || !d.doc_id.trim() || d.doc_id === 'demographics' || ids.has(d.doc_id)) return true;
+    ids.add(d.doc_id); return false;
+  });
+  const unusableReason = !formDate ? 'invalid form date; cannot establish temporal scope' : ambiguousIds ? 'invalid, reserved or duplicate document IDs; citations are ambiguous' : null;
+  if (unusableReason) docs = [];
   // Undated or future-dated documents can't take part in "most recent" or window logic, so they're excluded.
   const usable = docs
     .filter((d) => typeof d.text === 'string' && d.doc_id)
@@ -79,7 +93,8 @@ export function draftForm(form: Form, docs: Doc[], demographics: Demographics, o
 
   return form.fields.map((field) => {
     let r: Result;
-    try { r = draftField(field, ctx); } catch (e) { r = notDocumented(`extractor crashed (${(e as Error).message}); a crash abstains, never guesses`); }
+    try { r = unusableReason && !['DEMOGRAPHIC', 'PHYSICIAN_ENTERED', 'OPINION_PHYSICIAN'].includes(field.class)
+      ? notDocumented(unusableReason) : draftField(field, ctx); } catch (e) { r = notDocumented(`extractor crashed (${(e as Error).message}); a crash abstains, never guesses`); }
     const { note, ...rest } = verify(r, textOf);
     const out: FieldDraft = { field_id: field.field_id, ...rest };
     if (opts.explain && note) out.note = note;
@@ -89,7 +104,7 @@ export function draftForm(form: Form, docs: Doc[], demographics: Demographics, o
 
 function arg(name: string): string {
   const i = process.argv.indexOf(`--${name}`);
-  if (i < 0 || !process.argv[i + 1]) throw new Error(`missing --${name}`);
+  if (i < 0 || !process.argv[i + 1] || process.argv[i + 1].startsWith('--')) throw new Error(`missing --${name}`);
   return process.argv[i + 1];
 }
 
@@ -111,4 +126,7 @@ function main(): void {
   }
 }
 
-if (process.argv[1]?.endsWith('draft.js')) main();
+if (process.argv[1]?.endsWith('draft.js')) {
+  try { main(); }
+  catch (error) { console.error(`Draft failed: ${(error as Error).message}`); process.exitCode = 1; }
+}

@@ -185,6 +185,10 @@ export function eosinophils(ctx: Ctx): Result {
     for (const s of sents) {
       if (NOT_BLOOD.test(s.text)) continue;
       const m = EOS.exec(s.text);
+      if (m && (THIRD_PARTY.test(s.text) || isHedged(s.text) || isNegated(s.text)))
+        return notDocumented(`${doc.doc_id}: eosinophil statement is uncertain, negated or has another subject`);
+      if (m && collected && (collected > doc.date || (ctx.formDate && collected > ctx.formDate)))
+        return notDocumented(`${doc.doc_id}: collection date is after the report or form date`);
       if (m) results.push({ doc, value: m[1].trim(), sentence: s.text, collected, collectedSentence });
     }
   }
@@ -245,6 +249,12 @@ export function steroidCourses(ctx: Ctx, months = 12): Result {
   const historical: { doc: Doc; date: string | null; text: string }[] = [];
 
   for (const doc of inWindow) {
+    // Another person in the steroid sentence, the sentence before it, or the flare sentence makes the subject ambiguous.
+    // A social-history line elsewhere in the note ("Lives with wife") does not.
+    const ss = sentences(doc.text);
+    const si = ss.findIndex((s) => SYSTEMIC.test(s.text));
+    if (si >= 0 && [ss[si], ss[si - 1], ...ss.filter((s) => ASTHMA_EXAC.test(s.text))].some((s) => s && THIRD_PARTY.test(s.text)))
+      return notDocumented(`${doc.doc_id}: steroid mention has ambiguous patient attribution`);
     const agg = AGGREGATE.exec(doc.text);
     if (agg) return notDocumented(`${doc.doc_id} gives a summary count ("${stripEnd(agg[0])}") that cannot be reconciled with dated courses`);
     const sents = sentences(doc.text);
@@ -351,6 +361,10 @@ export function inhaledTherapy(ctx: Ctx): Result {
       const lab = /^([^:\n]{1,40}):\s*(.+)$/.exec(item);
       if (lab && !drugKey(lab[1]) && !/\d/.test(lab[1])) item = lab[2].trim();
       const key = drugKey(item);
+      if (key && (THIRD_PARTY.test(body) || isHedged(item) || isNegated(item) || /\b(plan(?:ned)?|recommend(?:ed)?|proposed|will)\b/i.test(item))) {
+        unclear = `${doc.doc_id}: medication list is not an explicit current patient regimen`;
+        continue;
+      }
       if (!key && UNKNOWN_INHALER.test(item) && !INACTIVE.test(item)) { unclear = `${doc.doc_id} lists an inhaler I cannot identify ("${item}")`; continue; }
       if (key && !INACTIVE.test(item) && doc.text.includes(item)) state.set(key, cite(doc, item));
     }
@@ -387,6 +401,7 @@ export function inhaledTherapy(ctx: Ctx): Result {
           unclear = `${doc.doc_id} changes an inhaler I cannot identify ("${stripEnd(s.text)}")`;
         continue;
       }
+      if (THIRD_PARTY.test(s.text)) { unclear = `${doc.doc_id}: inhaler subject is ambiguous`; continue; }
       if (!state) state = new Map();
       if (isHedged(s.text) || isNegated(s.text)) { unclear = `${doc.doc_id} has a hedged or negated inhaler statement ("${stripEnd(s.text)}")`; continue; }
       const sw = SWITCH.exec(s.text);
@@ -421,6 +436,8 @@ export function inhaledTherapy(ctx: Ctx): Result {
   if (unclear) return notDocumented(unclear);
   const items = [...(state as Map<string, Citation>).values()];
   if (!items.length) return notDocumented('the latest medication information lists no inhaled asthma drug');
+  if (items.some(c => !numbersOf(c.quote).length))
+    return notDocumented('an inhaler is named without a documented dose');
   return drafted(items.map((c) => c.quote).join('; '), items);
 }
 
@@ -457,7 +474,7 @@ function verbDate(text: string, verb: RegExp, docDate: string): { found: boolean
   let date = d && /^\s*(?:on\s+|in\s+|as of\s+)?\s*$/i.test(between) ? d.iso : undefined;
   // "Started Fasenra 30 mg q8w on 2025-03-01": drug, dose and interval may sit between verb and date,
   // but only when the sentence has a single date, so the date can't belong to something else.
-  if (!date && d && findDates(text).length === 1 && new RegExp(BIO_RE.source, "i").test(after.slice(0, d.index)) &&
+  if (!date && d && findDates(text).length === 1 && new RegExp(BIO_RE.source, 'i').test(after.slice(0, d.index)) &&
     /^\s*(?:(?:\d+(?:\.\d+)?\s*(?:mg|mcg)|sc|subcut\w*|iv|q\d+w(?:ks?)?|every\s+\d+\s+weeks?|monthly)\s*)*(?:on\s+|as of\s+)?$/i.test(between)) date = d.iso;
   return { found: true, blocked: false, date };
 }
@@ -483,6 +500,8 @@ export function priorBiologic(ctx: Ctx): Result {
           if (drugs.size > 1) return notDocumented(`${doc.doc_id} names two biologics in one clause ("${stripEnd(text)}"); cannot assign dates safely`);
           continue;
         }
+        if (THIRD_PARTY.test(text) || isHedged(text))
+          return notDocumented(`${doc.doc_id}: biologic statement is uncertain or has another subject`);
         const drug = [...drugs][0];
         if (NON_ASTHMA_INDICATION.test(text) && !/asthma/i.test(text))
           return notDocumented(`${doc.doc_id} ties ${drug} to a non-asthma indication ("${stripEnd(text)}")`);
@@ -491,6 +510,8 @@ export function priorBiologic(ctx: Ctx): Result {
         if (RESTART.test(text) && !isNegated(text) && !isHedged(text)) t.restarted = true;
         const st = verbDate(text, START_VERB, doc.date);
         const sp = verbDate(text, STOP_VERB, doc.date);
+        if (!st.blocked && !sp.blocked && [st.date, sp.date, ...findDates(text).map(d => d.iso)].some(d => d && (d > doc.date || (ctx.formDate && d > ctx.formDate))))
+          return notDocumented(`${doc.doc_id}: biologic dates are after the documenting note or form`);
         let used = false;
         if (!st.blocked && !sp.blocked) {
           if (st.found) { t.started = true; t.start = st.date ?? t.start; used = true; }
@@ -545,12 +566,28 @@ const SMOKE_THIRD_PARTY = /\b(married to|around smokers?|works? (?:with|around)|
 const PATTERNS: [string, RegExp][] = [['Never smoker', NEVER], ['Non-smoker', NON_SMOKER], ['Former smoker', FORMER], ['Current smoker', CURRENT]];
 
 export function smoking(ctx: Ctx): Result {
+  const dates = [...new Set(ctx.docs.map(d => d.date))].sort().reverse();
+  for (const date of dates) {
+    const results = ctx.docs.filter(d => d.date === date).map(d => smokingDocument({ ...ctx, docs: [d] }));
+    const relevant = results.filter(r => r.status === 'DRAFTED' || !r.note?.startsWith('no explicit statement'));
+    if (!relevant.length) continue;
+    if (relevant.some(r => r.status !== 'DRAFTED')) return notDocumented(`unclear smoking statement on ${date}`);
+    const labels = new Set(relevant.map(r => String(r.value).split(':')[0]));
+    if (labels.size !== 1) return notDocumented(`conflicting smoking statements on ${date}`);
+    return drafted(relevant[0].value, uniq(relevant.flatMap(r => r.citations)));
+  }
+  return notDocumented('no explicit statement about this patient\'s own smoking');
+}
+
+function smokingDocument(ctx: Ctx): Result {
   for (const doc of newestFirst(ctx.docs)) {
     const found: { label: string; clause: string }[] = [];
     let unclear: string | null = null;
     for (const s of sentences(doc.text)) {
       if (!SMOKE_TOPIC.test(s.text)) continue;
       for (const c of clauses(s.text)) {
+        // A conjunction does not introduce a new patient subject by itself.
+        if (THIRD_PARTY.test(s.text) && !/\b(patient|he|she|they)\b/i.test(c)) continue;
         const core = c.replace(PACK_YEARS, ' '); // pack-years describe the past, not the status
         if (!SMOKE_TOPIC.test(core) || THIRD_PARTY.test(c) || OFF_TOPIC.test(c)) continue;
         if (NOT_STATUS.test(c)) continue;

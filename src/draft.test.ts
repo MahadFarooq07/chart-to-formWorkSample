@@ -176,7 +176,10 @@ test('a "continues X" statement confirms the list; a different dose, an unknown 
 
 test('a medication list on its own lines with a label is read item by item', () => {
   const docs = [doc('2026-02-01', 'Medications:\nSymbicort two puffs twice daily\nVentolin as needed\nMontelukast 10 mg daily')];
-  assert.equal(field(docs, 'current_inhaled_therapy').value, 'Symbicort two puffs twice daily; Ventolin as needed');
+  // The requested field includes drug AND dose; Ventolin's dose is absent.
+  assert.equal(field(docs, 'current_inhaled_therapy').status, 'NOT_DOCUMENTED');
+  const complete = [doc('2026-02-01', 'Medications:\nSymbicort 200/6 mcg two puffs twice daily\nVentolin 100 mcg as needed\nMontelukast 10 mg daily')];
+  assert.equal(field(complete, 'current_inhaled_therapy').value, 'Symbicort 200/6 mcg two puffs twice daily; Ventolin 100 mcg as needed');
   const pharm = [doc('2026-03-01', 'Dispensed/active: Breo Ellipta 200/25 mcg, 1 inhalation once daily\nprednisone 50 mg (completed 2026-02-13)', 'pharmacy', 'medication_list')];
   assert.equal(field(pharm, 'current_inhaled_therapy').value, 'Breo Ellipta 200/25 mcg, 1 inhalation once daily');
 });
@@ -255,4 +258,9 @@ test('a biologic start date may follow the drug, dose and interval', () => {
   assert.match(v, /2025-03-01/);
   assert.match(v, /2025-09-15/);
   assert.match(v, /persistent exacerbations/);
+});
+
+test('a social-history line elsewhere in the note does not block a steroid course', () => {
+  const docs = [doc('2026-04-01', 'Lives with wife and two kids. Asthma exacerbation after a cold. Prednisone 40 mg daily for 5 days.')];
+  assert.equal(field(docs, 'systemic_steroid_courses_past_12_months').value, 1);
 });
