@@ -1,0 +1,111 @@
+{
+  "chart": "B5-tables",
+  "form_date": "2026-11-15",
+  "fields": {
+    "patient_name": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_includes": [
+        "synthetic",
+        "morgan"
+      ]
+    },
+    "phn": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "SYNTH-PHN-0505"
+    },
+    "date_of_birth": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "1972-05-17"
+    },
+    "diagnosis": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B503",
+        "B501"
+      ],
+      "value_includes": [
+        "severe eosinophilic asthma"
+      ]
+    },
+    "respirologist_confirmed_within_24_months": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B501",
+        "B503"
+      ],
+      "value_equals": true
+    },
+    "blood_eosinophils_most_recent": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B506"
+      ],
+      "value_includes": [
+        "0.41",
+        "2026-08-19"
+      ]
+    },
+    "systemic_steroid_courses_past_12_months": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B502",
+        "B504",
+        "B505"
+      ],
+      "value_equals": 2
+    },
+    "current_inhaled_therapy": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B507"
+      ],
+      "value_includes": [
+        "200/6"
+      ],
+      "value_excludes": [
+        "flovent",
+        "montelukast"
+      ]
+    },
+    "prior_biologic_trial": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B505"
+      ],
+      "value_includes": [
+        "benralizumab",
+        "2024-02-01",
+        "2025-01-15",
+        "inadequate response"
+      ]
+    },
+    "smoking_status": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B503"
+      ],
+      "value_includes": [
+        "never"
+      ],
+      "value_excludes": [
+        "current",
+        "former"
+      ]
+    },
+    "inadequate_control_despite_high_dose_ics": {
+      "status": "NEEDS_PHYSICIAN"
+    },
+    "requested_dose_regimen": {
+      "status": "NEEDS_PHYSICIAN"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "doc_id": "C101",
+    "date": "2024-02-01",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Omalizumab was trialed from 2022-06-01 to 2023-01-15 and stopped due to no meaningful benefit."
+  },
+  {
+    "doc_id": "C102",
+    "date": "2025-02-12",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Respirology review. Diagnosis: severe asthma with an eosinophilic phenotype."
+  },
+  {
+    "doc_id": "C103",
+    "date": "2025-12-30",
+    "type": "discharge_summary",
+    "author_role": "hospitalist",
+    "text": "DISCHARGE SUMMARY\nAdmitted 2025-12-26 with acute asthma exacerbation. Treated with IV methylprednisolone then oral prednisone 40 mg daily, to complete 7 days total.\nDischarge diagnosis: severe asthma exacerbation."
+  },
+  {
+    "doc_id": "C104",
+    "date": "2026-01-08",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Post-discharge visit. Finishing prednisone tomorrow. Breathing much better."
+  },
+  {
+    "doc_id": "C105",
+    "date": "2026-04-19",
+    "type": "clinic_note",
+    "author_role": "walk_in_physician",
+    "text": "Asthma flare from pollen. Prednisone 50 mg x 5 days."
+  },
+  {
+    "doc_id": "C106",
+    "date": "2026-05-10",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Absolute eosinophil count 450 cells/uL. Specimen drawn 2026-05-09."
+  },
+  {
+    "doc_id": "C107",
+    "date": "2026-08-01",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Repeat CBC requested; specimen hemolysed, no differential reported."
+  },
+  {
+    "doc_id": "C108",
+    "date": "2026-09-15",
+    "type": "medication_list",
+    "author_role": "pharmacy",
+    "text": "Active medications: fluticasone furoate/vilanterol (Breo) 200/25 mcg one inhalation daily; salbutamol 100 mcg PRN; mometasone nasal spray 50 mcg 2 sprays daily."
+  },
+  {
+    "doc_id": "C109",
+    "date": "2026-10-10",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Tobacco: quit 1998. Smokes cannabis occasionally."
+  }
+]

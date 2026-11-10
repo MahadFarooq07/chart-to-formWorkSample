@@ -1,0 +1,51 @@
+[
+  {
+    "doc_id": "B501",
+    "date": "2026-02-11",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Respirology follow-up. Diagnosis of severe eosinophilic asthma reconfirmed. FeNO 64 ppb."
+  },
+  {
+    "doc_id": "B502",
+    "date": "2026-01-07",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma exacerbation. Prednisone 50 mg daily x 5 days."
+  },
+  {
+    "doc_id": "B503",
+    "date": "2026-05-01",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "PROBLEM LIST\n1. Severe eosinophilic asthma (reconfirmed by respirology 2026-02-11)\n2. GERD\n3. Hypertension\nSOCIAL HISTORY\nTobacco: Never\nAlcohol: 2 drinks/week\nCannabis: occasional, smoked"
+  },
+  {
+    "doc_id": "B504",
+    "date": "2026-06-20",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma flare after URTI. Prednisone 40 mg x5d."
+  },
+  {
+    "doc_id": "B505",
+    "date": "2026-07-15",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Oral corticosteroid courses in the past year: 2026-01-07 prednisone 50 mg x5d for asthma; 2026-06-20 prednisone 40 mg x5d for asthma. Previous biologic: benralizumab 30 mg q8wk from 2024-02-01 to 2025-01-15, stopped for inadequate response."
+  },
+  {
+    "doc_id": "B506",
+    "date": "2026-08-20",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "HEMATOLOGY REPORT\nPHN: SYNTH-PHN-0550\nCollection Date/Time: 2026-08-19 07:55\nTest            Result   Units      Ref Range\nWBC             7.4      x10^9/L    4.0-11.0\nEosinophils     0.41     x10^9/L    0.0-0.5\nBasophils       0.03     x10^9/L    0.0-0.2"
+  },
+  {
+    "doc_id": "B507",
+    "date": "2026-09-30",
+    "type": "medication_list",
+    "author_role": "pharmacy",
+    "text": "MEDICATION RECONCILIATION\nDrug | Dose | Directions | Status\nBudesonide/formoterol (Symbicort) | 200/6 mcg | 2 inh BID | Active\nSalbutamol | 100 mcg | 2 puffs PRN | Active\nFluticasone (Flovent HFA) | 250 mcg | 2 puffs BID | Discontinued 2026-03\nMontelukast | 10 mg | daily | Active"
+  }
+]

@@ -1,0 +1,109 @@
+{
+  "chart": "B2-letters",
+  "form_date": "2026-11-15",
+  "fields": {
+    "patient_name": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_includes": [
+        "synthetic-okafor",
+        "ada"
+      ]
+    },
+    "phn": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "SYNTH-PHN-0202"
+    },
+    "date_of_birth": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "1955-02-28"
+    },
+    "diagnosis": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B204"
+      ],
+      "value_includes": [
+        "severe eosinophilic asthma"
+      ],
+      "value_excludes": [
+        "allergic"
+      ]
+    },
+    "respirologist_confirmed_within_24_months": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B204"
+      ],
+      "value_equals": true
+    },
+    "blood_eosinophils_most_recent": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B208"
+      ],
+      "value_includes": [
+        "0.31",
+        "2026-07-28"
+      ]
+    },
+    "systemic_steroid_courses_past_12_months": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B205",
+        "B207"
+      ],
+      "value_equals": 2
+    },
+    "current_inhaled_therapy": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B210"
+      ],
+      "value_includes": [
+        "symbicort 200/6"
+      ],
+      "value_excludes": [
+        "flovent"
+      ]
+    },
+    "prior_biologic_trial": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B202",
+        "B203"
+      ],
+      "value_includes": [
+        "2023-03-01",
+        "2023-10-30",
+        "anaphylactoid"
+      ]
+    },
+    "smoking_status": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B201"
+      ],
+      "value_includes": [
+        "never"
+      ],
+      "value_excludes": [
+        "current"
+      ]
+    },
+    "inadequate_control_despite_high_dose_ics": {
+      "status": "NEEDS_PHYSICIAN"
+    },
+    "requested_dose_regimen": {
+      "status": "NEEDS_PHYSICIAN"
+    }
+  }
+}

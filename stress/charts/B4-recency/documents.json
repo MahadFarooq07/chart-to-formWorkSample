@@ -1,0 +1,72 @@
+[
+  {
+    "doc_id": "B401",
+    "date": "2025-01-20",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Diagnosis: moderate persistent asthma."
+  },
+  {
+    "doc_id": "B402",
+    "date": "2026-02-25",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Collected 2026-02-24. Eosinophils 0.60 x10^9/L."
+  },
+  {
+    "doc_id": "B403",
+    "date": "2026-03-03",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Impression: severe asthma with type 2 inflammation. Meets criteria for a biologic."
+  },
+  {
+    "doc_id": "B404",
+    "date": "2024-05-05",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Current smoker, 1/2 ppd."
+  },
+  {
+    "doc_id": "B405",
+    "date": "2026-01-15",
+    "type": "medication_list",
+    "author_role": "pharmacy",
+    "text": "Active: Advair Diskus 250/50 1 inhalation BID; Ventolin 100 mcg PRN."
+  },
+  {
+    "doc_id": "B406",
+    "date": "2026-01-30",
+    "type": "ed_note",
+    "author_role": "emergency_physician",
+    "text": "Asthma exacerbation. Dexamethasone 12 mg PO single dose given."
+  },
+  {
+    "doc_id": "B407",
+    "date": "2026-04-04",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Quit smoking 3 months ago with varenicline."
+  },
+  {
+    "doc_id": "B408",
+    "date": "2026-06-01",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Advair increased to 500/50 one inhalation twice daily."
+  },
+  {
+    "doc_id": "B409",
+    "date": "2026-08-30",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma exacerbation. Prednisone 50 mg daily x5 days."
+  },
+  {
+    "doc_id": "B410",
+    "date": "2026-09-10",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Collected 2026-09-08. Eosinophils 0.18 x10^9/L. Comment: drawn during a prednisone course."
+  }
+]

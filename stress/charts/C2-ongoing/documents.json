@@ -1,0 +1,58 @@
+[
+  {
+    "doc_id": "C201",
+    "date": "2025-09-09",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Impression: Severe asthma, T2-high."
+  },
+  {
+    "doc_id": "C202",
+    "date": "2025-10-02",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Dupilumab 300 mg q2w started 2025-10-01 for asthma."
+  },
+  {
+    "doc_id": "C203",
+    "date": "2025-12-12",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma exacerbation. Prednisone 40 mg daily for 5 days."
+  },
+  {
+    "doc_id": "C204",
+    "date": "2026-02-02",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma exacerbation, mild. Prednisone was not prescribed as symptoms settled with salbutamol."
+  },
+  {
+    "doc_id": "C205",
+    "date": "2026-03-03",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Collected 2026-03-01. Eosinophils 0.70 x10^9/L."
+  },
+  {
+    "doc_id": "C206",
+    "date": "2026-07-07",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Collected 2026-07-05. Eosinophils <0.10 x10^9/L."
+  },
+  {
+    "doc_id": "C207",
+    "date": "2026-09-09",
+    "type": "medication_list",
+    "author_role": "pharmacy",
+    "text": "Active medications: Dupixent 300 mg SC q2w; Symbicort 200/6 mcg 2 inhalations BID; montelukast 10 mg daily."
+  },
+  {
+    "doc_id": "C208",
+    "date": "2026-09-20",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Smoking status: current, 5 cigarettes/day."
+  }
+]

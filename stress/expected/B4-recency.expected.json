@@ -1,0 +1,101 @@
+{
+  "chart": "B4-recency",
+  "form_date": "2026-11-15",
+  "fields": {
+    "patient_name": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_includes": [
+        "synthetic",
+        "jamie"
+      ]
+    },
+    "phn": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "SYNTH-PHN-0404"
+    },
+    "date_of_birth": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "1983-08-08"
+    },
+    "diagnosis": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B403"
+      ],
+      "value_includes": [
+        "severe asthma"
+      ],
+      "value_excludes": [
+        "moderate"
+      ]
+    },
+    "respirologist_confirmed_within_24_months": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B403",
+        "B401"
+      ],
+      "value_equals": true
+    },
+    "blood_eosinophils_most_recent": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B410"
+      ],
+      "value_includes": [
+        "0.18",
+        "2026-09-08"
+      ],
+      "value_excludes": [
+        "0.60"
+      ]
+    },
+    "systemic_steroid_courses_past_12_months": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B406",
+        "B409"
+      ],
+      "value_equals": 2
+    },
+    "current_inhaled_therapy": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B408"
+      ],
+      "value_includes": [
+        "500/50"
+      ],
+      "value_excludes": [
+        "250/50"
+      ]
+    },
+    "prior_biologic_trial": {
+      "status": "NOT_DOCUMENTED"
+    },
+    "smoking_status": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B407"
+      ],
+      "value_excludes": [
+        "current"
+      ]
+    },
+    "inadequate_control_despite_high_dose_ics": {
+      "status": "NEEDS_PHYSICIAN"
+    },
+    "requested_dose_regimen": {
+      "status": "NEEDS_PHYSICIAN"
+    }
+  }
+}

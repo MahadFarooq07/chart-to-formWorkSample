@@ -1,0 +1,65 @@
+[
+  {
+    "doc_id": "B801",
+    "date": "2024-03-01",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Reslizumab IV 3 mg/kg q4w from 2023-05-01 to 2024-01-31; discontinued because of no improvement in exacerbation rate."
+  },
+  {
+    "doc_id": "B802",
+    "date": "2024-11-14",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Impression: severe asthma. Smoking status: former (quit 2001)."
+  },
+  {
+    "doc_id": "B803",
+    "date": "2025-11-14",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma exacerbation. Prednisone 50 mg daily x5 days."
+  },
+  {
+    "doc_id": "B804",
+    "date": "2026-01-20",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma exacerbation with URTI. Prednisone 40 mg daily x5 days."
+  },
+  {
+    "doc_id": "B805",
+    "date": "2026-07-02",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Collected 2026-06-30. Eosinophils 0.50 x10^9/L."
+  },
+  {
+    "doc_id": "B806",
+    "date": "2026-07-04",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "AMENDED REPORT. Collected 2026-06-30. Eosinophils 0.05 x10^9/L (corrected; previously reported in error)."
+  },
+  {
+    "doc_id": "B807",
+    "date": "2026-10-30",
+    "type": "medication_list",
+    "author_role": "pharmacy",
+    "text": "Active medications: Alvesco 400 mcg once daily; Bricanyl Turbuhaler 0.5 mg PRN."
+  },
+  {
+    "doc_id": "B808",
+    "date": "2026-11-10",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Alvesco stopped due to hoarseness. Started Arnuity Ellipta 200 mcg one inhalation daily."
+  },
+  {
+    "doc_id": "B809",
+    "date": "2026-11-16",
+    "type": "ed_note",
+    "author_role": "emergency_physician",
+    "text": "Asthma exacerbation. Prednisone 50 mg x5d."
+  }
+]

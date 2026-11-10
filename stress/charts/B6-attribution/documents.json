@@ -1,0 +1,93 @@
+[
+  {
+    "doc_id": "B601",
+    "date": "2022-04-01",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Former smoker, quit 2010."
+  },
+  {
+    "doc_id": "B602",
+    "date": "2023-06-01",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Impression: severe asthma."
+  },
+  {
+    "doc_id": "B603",
+    "date": "2025-01-01",
+    "type": "consult_letter",
+    "author_role": "dermatologist",
+    "text": "Dupilumab for atopic dermatitis started 2025-01-01."
+  },
+  {
+    "doc_id": "B604",
+    "date": "2025-06-10",
+    "type": "consult_letter",
+    "author_role": "dermatologist",
+    "text": "Dupilumab stopped 2025-06-01 because of conjunctivitis. Eczema improved."
+  },
+  {
+    "doc_id": "B605",
+    "date": "2026-02-28",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Collected 2026-02-27. Eosinophils 0.35 x10^9/L."
+  },
+  {
+    "doc_id": "B606",
+    "date": "2026-03-15",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma exacerbation in the setting of COVID-19. Prednisone 40 mg daily x5 days."
+  },
+  {
+    "doc_id": "B607",
+    "date": "2026-04-01",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Inhalers: Breo Ellipta 100/25 one puff daily; salbutamol 100 mcg PRN."
+  },
+  {
+    "doc_id": "B608",
+    "date": "2026-05-05",
+    "type": "consult_letter",
+    "author_role": "internal_medicine",
+    "text": "Impression: severe asthma, poorly controlled."
+  },
+  {
+    "doc_id": "B609",
+    "date": "2026-06-02",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Left knee osteoarthritis. Triamcinolone 40 mg intra-articular injection."
+  },
+  {
+    "doc_id": "B610",
+    "date": "2026-08-15",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Breo stepped up from 100/25 to Breo Ellipta 200/25 one puff daily."
+  },
+  {
+    "doc_id": "B611",
+    "date": "2026-09-01",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Her sister's bloodwork showed eosinophils 0.9 x10^9/L. Mother, who smokes, attended the visit."
+  },
+  {
+    "doc_id": "B612",
+    "date": "2026-10-01",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Specimen: induced sputum. Collected 2026-09-29. Sputum eosinophils 12%."
+  },
+  {
+    "doc_id": "B613",
+    "date": "2026-11-20",
+    "type": "ed_note",
+    "author_role": "emergency_physician",
+    "text": "Asthma exacerbation. Prednisone 50 mg x5d."
+  }
+]

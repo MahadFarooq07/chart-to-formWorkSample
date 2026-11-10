@@ -1,0 +1,23 @@
+[
+  {
+    "doc_id": "B701",
+    "date": "2025-06-01",
+    "type": "consult_letter",
+    "author_role": "pulmonologist",
+    "text": "impression severe eosinophilic asthma confirmed on spirometry and sputum eos"
+  },
+  {
+    "doc_id": "B702",
+    "date": "2026-03-03",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "asthma flare after cold rx prednisone 50mg po od x5d"
+  },
+  {
+    "doc_id": "B703",
+    "date": "2026-09-14",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "pt seen today for asthma f/u doing ok on symbicort 200/6 2 puffs bid uses ventolin 2x/wk no ED visits since march last pred burst was march 3 for asthma flare eos 0.4 last month nonsmoker"
+  }
+]

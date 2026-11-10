@@ -1,0 +1,30 @@
+[
+  {
+    "doc_id": "C301",
+    "date": "2026-08-20",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "RE: Synthetic, Sam (PHN SYNTH-PHN-9999)\nHistory: Asthma diagnosed age 7. Never smoker. Previously on reslizumab from 2023-01-10 to 2023-12-01, stopped for lack of efficacy.\nMedications: Trelegy 200/62.5/25 mcg one inhalation daily; Ventolin 100 mcg PRN.\nInvestigations: Blood eosinophils 0.62 x10^9/L, collected 2026-08-01.\nImpression: Severe eosinophilic asthma, uncontrolled despite high-dose ICS/LABA/LAMA.\nPlan: Apply for Drug Z."
+  },
+  {
+    "doc_id": "C302",
+    "date": "2026-01-14",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma exacerbation. Prednisone 50 mg daily x5d."
+  },
+  {
+    "doc_id": "C303",
+    "date": "2026-05-22",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma exacerbation after a cold. Prednisone 50 mg daily x5d."
+  },
+  {
+    "doc_id": "C304",
+    "date": "2026-09-01",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Gout flare. Colchicine started. Asthma ok."
+  }
+]

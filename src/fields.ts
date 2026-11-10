@@ -84,7 +84,7 @@ function asthmaDiagnoses(docs: Doc[]): DxHit[] {
       const kw = DX_KEYWORD.exec(s.text);
       if (!kw || !/asthma/i.test(s.text)) continue;
       const p = dxPhrase(s.text.slice(kw.index + kw[0].length));
-      if (!p || NOT_DX_FOLLOW.test(p.next)) continue;
+      if (!p || NOT_DX_FOLLOW.test(p.next) || /\b(exacerbation|flare|attack|crisis)\b/i.test(p.phrase)) continue;
       // Doubt is judged on the clause holding the statement (plus a short trailing clause like ", likely").
       const asthmaAt = s.text.toLowerCase().indexOf('asthma', kw.index);
       const clauseStart = Math.max(s.text.lastIndexOf(';', kw.index), s.text.lastIndexOf(',', kw.index)) + 1;
@@ -150,12 +150,22 @@ export function respirologistConfirmed(ctx: Ctx, months = 24): Result {
   const latest = hits.filter((h) => h.doc.date === latestDate);
   const bad = latest.find((h) => h.doubtful);
   if (bad) return notDocumented(`the most recent respirologist statement in the window (${bad.doc.doc_id}) is hedged or in question`);
+  for (const h of latest) {
+    const cue = /\b(?:re)?confirmed\s+(?:on|in)\s+/i.exec(h.sentence);
+    if (!cue || /\breconfirmed today\b/i.test(h.sentence)) continue;
+    const tail = h.sentence.slice(cue.index + cue[0].length);
+    const dates = findDates(tail);
+    if (!/^(?:\d|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|last\b|this\b)/i.test(tail)) continue;
+    const date = dates.length === 1 && dates[0].index === 0 ? dates[0].iso : null;
+    if (!date || date < from || date > h.doc.date || date > ctx.formDate)
+      return notDocumented(`${h.doc.doc_id}: explicit confirmation date is ambiguous or outside the valid window`);
+  }
   const changed = resp.find((d) => d.date > latestDate && sentences(d.text).some((s) =>
     DX_KEYWORD.test(s.text) && !/asthma/i.test(s.text) && !DX_STATUS_ONLY.test(s.text)));
   if (changed) return notDocumented(`a later respirology document (${changed.doc_id}) carries an impression that does not mention asthma, so the confirmation may have been revised`);
   const inputs = latest.map((h) => cite(h.doc, h.sentence));
   return drafted(true, inputs, {
-    rule: `true if a document authored by a respirologist, dated on or after ${from} (${months} months before the form date ${ctx.formDate}), states an asthma diagnosis without hedging or negation`,
+    rule: `true if a respirologist document dated on or after ${from} states an asthma diagnosis without hedging or negation; an explicit confirmation date must also be within ${from} to ${ctx.formDate} and no later than the document date`,
     inputs,
   });
 }
@@ -163,7 +173,7 @@ export function respirologistConfirmed(ctx: Ctx, months = 24): Result {
 // ---------------------------------------------------------------- EOSINOPHILS
 
 const UNIT = String.raw`(?:(?:x|×|\*)?\s*10\s*(?:\^|\*\*|E|e)?\s*9\s*\/\s*L|(?:x|×|\*)?\s*10⁹\s*\/\s*L|(?:x|×|\*)?\s*10\s*\(9\)\s*\/\s*L|(?:giga|G)\s*\/\s*L|(?:cells?\s*)?\/\s*(?:u|µ|μ|mc)L|cells?\s*\/\s*mm\s*3|(?:x|×|\*)?\s*10\s*(?:\^|\*\*|E|e)?\s*3\s*\/\s*(?:u|µ|μ|mc)L|K\s*\/\s*(?:u|µ|μ|mc)L)`;
-const EOS = new RegExp(String.raw`\b(?:absolute\s+|abs\.?\s+|blood\s+|peripheral\s+|serum\s+)?eos(?:inophils?|\.)?(?:\s+count)?(?:\s*\(abs(?:olute)?\.?\))?(?:\s*[.…:=\-–]+\s*|\s+)?(?:was|were|of|is|at)?\s*(?:\d+(?:\.\d+)?\s*%\s*[,(]?\s*)?(\d+(?:\.\d+)?\s*${UNIT})`, 'i');
+const EOS = new RegExp(String.raw`\b(?:absolute\s+|abs\.?\s+|blood\s+|peripheral\s+|serum\s+)?eos(?:inophils?|\.)?(?:\s+count)?(?:\s*\(abs(?:olute)?\.?\))?(?:\s*[.…:=\-–]+\s*|\s+)?(?:was|were|of|is|at)?\s*(?:\d+(?:\.\d+)?\s*%\s*[,(]?\s*)?((?:[<>≤≥]\s*)?\d+(?:\.\d+)?\s*${UNIT})`, 'i');
 const NOT_BLOOD = /\b(sputum|bronchial|nasal|bal|lavage|tissue|biopsy|urine|csf|pleural)\b/i;
 const COLLECTED = /\b(collected|collection(?:\s+date)?|specimen(?:\s+(?:collected|drawn|date|taken|obtained))?|sample(?:d|\s+(?:collected|drawn|date|taken|obtained))?|drawn|(?:blood|bloods|bloodwork|labs?)\s+(?:taken|done|from|obtained)|venipuncture|phlebotomy|date of (?:collection|specimen|draw|service))\b/i;
 
@@ -185,7 +195,8 @@ export function eosinophils(ctx: Ctx): Result {
     for (const s of sents) {
       if (NOT_BLOOD.test(s.text)) continue;
       const m = EOS.exec(s.text);
-      if (m && (THIRD_PARTY.test(s.text) || isHedged(s.text) || isNegated(s.text)))
+      if (m && THIRD_PARTY.test(s.text)) continue; // another person's result does not revise the patient's result
+      if (m && (isHedged(s.text) || isNegated(s.text)))
         return notDocumented(`${doc.doc_id}: eosinophil statement is uncertain, negated or has another subject`);
       if (m && collected && (collected > doc.date || (ctx.formDate && collected > ctx.formDate)))
         return notDocumented(`${doc.doc_id}: collection date is after the report or form date`);
@@ -197,7 +208,9 @@ export function eosinophils(ctx: Ctx): Result {
   if (!dated.length) return notDocumented(`eosinophil results found (${results.map((r) => r.doc.doc_id).join(', ')}) but none with a stated collection date; the report date is not used`);
   const best = dated[dated.length - 1];
   // Two different results on the same collection date: can't pick one.
-  const clash = dated.find((r) => r.collected === best.collected && r.value !== best.value);
+  const clash = dated.find((r) => r.collected === best.collected && r.value !== best.value &&
+    !(best.doc.date > r.doc.date && (/^\s*amended report\b/i.test(best.doc.text) || /\bcorrected\b/i.test(best.sentence)) &&
+      !isHedged(best.doc.text) && !isNegated(best.doc.text)));
   if (clash) return notDocumented(`two different results share the collection date ${best.collected} (${best.doc.doc_id}, ${clash.doc.doc_id})`);
   // A result with no collection date could be newer unless its report predates our best collection date.
   // A sentence naming only years before the best collection year ("0.5 in 2024") is older and can be ignored.
@@ -222,7 +235,7 @@ const NOT_GIVEN = /\b(no|not|declined|refused|held|withheld|avoid\w*|plan(?:ned|
 const HISTORICAL = /\b(previous(?:ly)?|prior|recent(?:ly)?|completed|complet(?:ing|es)|finish(?:ed|ing|es)|last (?:week|month|year|visit|time|spring|summer|fall|autumn|winter)|ago|history of|hx of|since|already|was on|had been on|has been on|currently on|still on|remains on|continues?|continuing|ongoing|taper(?:ing)? (?:down|off)|day \d+ of|on day|from (?:the )?(?:ed|er|emergency|hospital|walk-?in|urgent care)|earlier this (?:year|month)|in the (?:spring|summer|fall|autumn|winter)|chronic|maintenance|long-?term|baseline|home dose)\b/i;
 const COUNT_WORD = String.raw`(?:\d+(?:st|nd|rd|th)?|one|two|three|four|five|six|second|third|fourth|fifth|several|multiple|frequent|repeated|numerous|another)`;
 const AGGREGATE = new RegExp(String.raw`\b${COUNT_WORD}\s+(?:courses?|bursts?|rounds?|times|episodes)\b[^.]*\b(?:prednisone|pred|steroids?|corticosteroids?|ocs)\b|\b(?:prednisone|pred|steroids?|corticosteroids?|ocs)\b[^.]*\b${COUNT_WORD}\s+(?:courses?|bursts?|rounds?|times)\b`, 'i');
-const ASTHMA_EXAC = /\b(asthma(?:tic)? (?:exacerbation|flare(?:-? ?up)?|attack|crisis)|(?:acute |severe |moderate |mild )?(?:exacerbation|flare(?:-? ?up)?) of (?:\w+ ){0,3}asthma|acute (?:severe )?asthma|status asthmaticus|asthma (?:worse|worsening|exacerbated)|worsening (?:of )?(?:\w+ )?asthma)\b/i;
+const ASTHMA_EXAC = /\b(asthma(?:tic)? (?:exacerbation|flare(?:d|-? ?up)?|attack|crisis)|(?:acute |severe |moderate |mild )?(?:exacerbation|flare(?:-? ?up)?) of (?:\w+ ){0,3}asthma|acute (?:severe )?asthma|status asthmaticus|asthma has flared(?: up)?|asthma (?:worse|worsening|exacerbated)|worsening (?:of )?(?:\w+ )?asthma)\b/i;
 const OTHER_INDICATION = /\b(gout|copd|emphysema|rash|dermatitis|eczema|arthritis|poison ivy|urticaria|hives|anaphylaxis|allergic reaction|sinusitis|bell'?s palsy|polymyalgia|croup|lupus|colitis|crohn'?s|vasculitis|ms relapse|pneumonia|bronchitis|sciatica|radiculopathy|nausea|chemotherapy|transplant|nephrotic|itp|sarcoid\w*|covid|pericarditis|thyroiditis|contact dermatitis|psoriasis)\b/i;
 
 /** Index of the first sentence in the doc that attributes a flare to asthma, without negating it. */
@@ -265,14 +278,16 @@ export function steroidCourses(ctx: Ctx, months = 12): Result {
     if (!mentionIdx.length) continue;
     const isNew = (i: number) => {
       const t = maskDates(sents[i].text);
-      return !NOT_GIVEN.test(t) && !HISTORICAL.test(t) && !earlierDate(sents[i].text, doc.date);
+      return !NOT_GIVEN.test(t) && !HISTORICAL.test(t) && !/\bcourse to finish\b/i.test(t) && !earlierDate(sents[i].text, doc.date);
     };
     const newIdx = mentionIdx.find(isNew);
     if (newIdx !== undefined) {
       if (attrIdx < 0) continue; // not attributed to an asthma flare by its own document (e.g. gout)
       const lo = Math.min(attrIdx, newIdx), hi = Math.max(attrIdx, newIdx);
       const span = sents.slice(lo, hi + 1).map((s) => s.text).join(' ');
-      if (OTHER_INDICATION.test(span) || (attrIdx > newIdx && OTHER_INDICATION.test(doc.text)))
+      // An explicitly stated infection trigger does not replace the asthma indication.
+      const causeChecked = span.replace(/\b(?:in the setting of|triggered by|after|with)\s+(?:COVID(?:-19)?|influenza(?: [AB])?)\b/gi, '');
+      if (OTHER_INDICATION.test(causeChecked) || (attrIdx > newIdx && OTHER_INDICATION.test(doc.text)))
         return notDocumented(`${doc.doc_id} mentions an asthma flare and another steroid indication, so the course cannot be attributed safely`);
       counted.push({ doc, steroid: sents[newIdx].text, attribution: sents[attrIdx].text });
     } else if (attrIdx >= 0) {
@@ -340,6 +355,7 @@ const INACTIVE = /\b(discontinued|stopped|held|on hold|expired|not taking|inacti
 const SWITCH = /\b(?:switched|changed|stepped (?:up|down)|transitioned|moved|converted|escalated)\s+(?:from\s+)?(.+?)\s+to\s+(.+)$/i;
 const START = /\b(?:started|start|starting|added|add|adding|initiated|initiate|began|begin|commenced|prescribed|new rx|new prescription)\s*(?:on\s+|for\s+)?[:\-]?\s*(.+)$/i;
 const STOP = /\b(?:stopped|stop|discontinued|discontinue|d\/c|ceased|removed)\s+(.+)$/i;
+const DOSE_CHANGE = /^(.+?)\s+(?:increased|decreased|stepped up|stepped down)\s+(?:from\s+\d+(?:\/\d+)*\s+)?to\s+(.+)$/i;
 const CONTINUE = /\b(continue[sd]?|continuing|remains? on|still on|stays? on|stay on|maintained? on|maintain|currently (?:on|taking|using)|is on|on\b|taking|using|uses|adheren\w+ (?:to|with)|compliant with|technique)\b/i;
 
 /** The object of a verb runs to the next clause: "started X; continue Y" is about X. */
@@ -347,7 +363,7 @@ const firstClause = (s: string) => stripEnd(s.split(/;|,?\s+and\s+|,?\s+then\s+/
 
 function listItems(body: string): string[] {
   const sep = /;|\n/.test(body) ? /;|\n/ : /,(?![^(]*\))/;
-  return body.split(sep).map(stripEnd).map((s) => s.trim()).filter(Boolean);
+  return body.split(sep).flatMap(item => sentences(item).map(s => stripEnd(s.text))).filter(Boolean);
 }
 
 export function inhaledTherapy(ctx: Ctx): Result {
@@ -356,12 +372,22 @@ export function inhaledTherapy(ctx: Ctx): Result {
   const replaceWithList = (doc: Doc, body: string) => {
     state = new Map();
     unclear = null;
+    const header = LIST_HEADER.exec(doc.text);
+    if (header) {
+      const headingSentence = sentences(doc.text).find(s => s.start <= header.index && s.start + s.text.length > header.index);
+      if (headingSentence && THIRD_PARTY.test(doc.text.slice(headingSentence.start, header.index))) {
+        unclear = `${doc.doc_id}: medication-list heading refers to another person`;
+        return;
+      }
+    }
     for (let item of listItems(body)) {
+      if (/\b(nasal|nostrils?|intranasal|cream|ointment|topical)\b/i.test(item)) continue;
+      const subjectText = item;
       // "Dispensed/active: Breo ..." on the first line: drop a label that is not itself a drug.
       const lab = /^([^:\n]{1,40}):\s*(.+)$/.exec(item);
       if (lab && !drugKey(lab[1]) && !/\d/.test(lab[1])) item = lab[2].trim();
       const key = drugKey(item);
-      if (key && (THIRD_PARTY.test(body) || isHedged(item) || isNegated(item) || /\b(plan(?:ned)?|recommend(?:ed)?|proposed|will)\b/i.test(item))) {
+      if (key && (THIRD_PARTY.test(subjectText) || isHedged(item) || isNegated(item) || /\b(plan(?:ned)?|recommend(?:ed)?|proposed|will)\b/i.test(item))) {
         unclear = `${doc.doc_id}: medication list is not an explicit current patient regimen`;
         continue;
       }
@@ -381,6 +407,12 @@ export function inhaledTherapy(ctx: Ctx): Result {
     const sents = sentences(doc.text);
     for (let i = 0; i < sents.length; i++) {
       const s = sents[i];
+      if (/\b(?:stopped|discontinued)\s+all\s+(?:asthma\s+)?inhalers\b/i.test(s.text)) {
+        if (isHedged(s.text) || isNegated(s.text) || THIRD_PARTY.test(s.text))
+          unclear = `${doc.doc_id}: unclear all-inhalers stop statement`;
+        else { state = new Map(); unclear = null; }
+        continue;
+      }
       const header = LIST_HEADER.exec(s.text);
       if (header) {
         let body = s.text.slice(header.index + header[0].length);
@@ -404,6 +436,13 @@ export function inhaledTherapy(ctx: Ctx): Result {
       if (THIRD_PARTY.test(s.text)) { unclear = `${doc.doc_id}: inhaler subject is ambiguous`; continue; }
       if (!state) state = new Map();
       if (isHedged(s.text) || isNegated(s.text)) { unclear = `${doc.doc_id} has a hedged or negated inhaler statement ("${stripEnd(s.text)}")`; continue; }
+      const doseChange = DOSE_CHANGE.exec(stripEnd(s.text));
+      const subjectStop = /^(.+?)\s+(?:stopped|discontinued)(?:\s+due to\s+.+)?$/i.exec(stripEnd(s.text));
+      if (doseChange && drugKey(doseChange[1]) && drugKey(doseChange[1]) === key && numbersOf(doseChange[2]).length) {
+        state.set(key, cite(doc, drugKey(doseChange[2]) === key ? doseChange[2] : stripEnd(s.text)));
+        continue;
+      }
+      if (subjectStop && drugKey(subjectStop[1]) === key) { state.delete(key); continue; }
       const sw = SWITCH.exec(s.text);
       const start = START.exec(s.text);
       const stop = STOP.exec(s.text);
@@ -438,7 +477,11 @@ export function inhaledTherapy(ctx: Ctx): Result {
   if (!items.length) return notDocumented('the latest medication information lists no inhaled asthma drug');
   if (items.some(c => !numbersOf(c.quote).length))
     return notDocumented('an inhaler is named without a documented dose');
-  return drafted(items.map((c) => c.quote).join('; '), items);
+  return drafted(items.map((c) => {
+    const change = DOSE_CHANGE.exec(c.quote);
+    // Keep the full update as evidence, but the value contains only the new dose.
+    return change ? `${change[1]} ${change[2]}` : c.quote;
+  }).join('; '), items);
 }
 
 // ---------------------------------------------------------------- PRIOR BIOLOGIC
@@ -449,8 +492,8 @@ const BIOLOGICS: Record<string, string> = {
   dupilumab: 'dupilumab', dupixent: 'dupilumab', tezepelumab: 'tezepelumab', tezspire: 'tezepelumab',
 };
 const BIO_RE = new RegExp(`\\b(${Object.keys(BIOLOGICS).join('|')})\\b`, 'gi');
-const START_VERB = /\b(started|initiated|commenced|began|begun|first dose|first injection|first given)\b/i;
-const STOP_VERB = /\b(stopped|discontinued|ceased|halted|withdrawn|last dose)\b/i;
+const START_VERB = /\b(started|initiated|commenced|began|begun|first (?:dose|injection|infusion)(?: (?:given|administered|received))?|first given|first (?:omalizumab|xolair|mepolizumab|nucala|benralizumab|fasenra|reslizumab|cinqair|dupilumab|dupixent|tezepelumab|tezspire)(?: \([^)]*\))? injection)\b/i;
+const STOP_VERB = /\b(stopped|discontinued|ceased|halted|withdrawn|last dose|d\/c(?:'?d)?)\b/i;
 const VERB_BLOCKER = /\b(not|never|no|declined|refused|denied|plan(?:ned|s)?|will|would|may|might|consider\w*|if|awaiting|pending|unable to|should|could|to be|recommend\w*|suggest\w*|offer\w*|discuss\w*|approval|funding|application)\b[^.]*$/i;
 const RANGE_BLOCKER = /\b(plan(?:ned|s)?|will|would|consider\w*|declined|refused|propos\w*|recommend\w*|if)\b/i;
 const OUTCOME = /\b(?:due to|because of|owing to|secondary to|for|after|given|with|as a result of|following|citing)\s+((?:lack of|no |poor|inadequate|insufficient|minimal|partial|adverse|injection|side|intoleran|anaphyla|cost|coverage|insurance|patient|non-?respon|nonrespon|failure|ineffect|loss of|worsen|absent|limited|suboptimal|persistent|ongoing|continued|frequent|recurrent)[^.;]*)/i;
@@ -561,7 +604,7 @@ const PACK_YEARS = /\d+(?:\.\d+)?\s*(?:pack[- ]?years?|py)\b(?:\s+(?:history|hx)
 const NEVER = /\b(never smoked|never[- ]smoker|lifelong non-?smoker|has never used tobacco|never used tobacco|no (?:history|hx) of (?:smoking|tobacco)|no (?:smoking|tobacco) (?:history|hx)|smoking(?: status| history| hx)?\s*:\s*never|tobacco(?: use)?\s*:\s*never)\b/i;
 const NON_SMOKER = /\b(non-?smoker|denies (?:any )?(?:current )?(?:smoking|tobacco)|does not smoke|doesn't smoke|not a smoker|no tobacco(?: use)?|no smoking|smoking(?: status)?\s*:\s*(?:no|none|nil|denies)|tobacco(?: use)?\s*:\s*(?:no|none|nil|denies))\b/i;
 const FORMER = /\b(quit|stopped|ceased|gave up|discontinued)\s+(?:smoking|tobacco|cigarettes?)|\bquit\b(?:\s+\w+){0,3}?\s+(?:in\s+)?(?:19|20)\d{2}\b|\b(?:former|ex-?|previous|past|reformed)\s*smoker|smoking(?: status| history| hx)?\s*:\s*(?:former|ex|quit|stopped)|tobacco(?: use)?\s*:\s*(?:former|ex|quit)|remote (?:smoking|tobacco) history|\bno longer smokes|\bquit\s+(?:\d+\s+)?(?:years?|months?|weeks?|days?)\s+ago|\bquit\b(?:\s+\w+){0,2}\s+(?:last|this) (?:year|month|week|spring|summer|fall|winter)/i;
-const CURRENT = /\b(current(?:ly)?\s+smok\w*|smokes\b|smoking\s+\d|active smoker|daily smoker|social smoker|occasional smoker|heavy smoker|light smoker|(?<!non-)(?<!non )(?<!ex-)(?<!ex )(?<!former )(?<!never )(?<!previous )(?<!past )(?<!reformed )smoker|smoking(?: status)?\s*:\s*(?:current|yes|daily|active)|tobacco(?: use)?\s*:\s*(?:current|yes|daily|active)|\d+\s+cigarettes?\s+(?:per|a|\/)\s*day|\d+(?:\.\d+)?\s*(?:packs?|ppd)\b|half a pack|packs? (?:per|a) day|continues to smoke|still smok\w+|resumed smoking|relapsed|smoking again|back to smoking|ongoing (?:smoking|tobacco))\b/i;
+const CURRENT = /\b(current(?:ly)?\s+smok\w*|smokes\b|smoking\s+\d|active smoker|daily smoker|social smoker|occasional smoker|heavy smoker|light smoker|(?<!non-)(?<!non )(?<!ex-)(?<!ex )(?<!former )(?<!never )(?<!previous )(?<!past )(?<!reformed )smoker|smoking(?: status)?\s*:\s*(?:current|yes|daily|active)|tobacco(?: use)?\s*:\s*(?:current|yes|daily|active)|\d+\s+cigarettes?\s*(?:\/|\s(?:per|a)\s)\s*day|\d+(?:\.\d+)?\s*(?:packs?|ppd)\b|half a pack|packs? (?:per|a) day|continues to smoke|still smok\w+|resumed smoking|relapsed|smoking again|back to smoking|ongoing (?:smoking|tobacco))\b/i;
 const SMOKE_THIRD_PARTY = /\b(married to|around smokers?|works? (?:with|around)|co-?workers?|colleagues?|visitors?|guests?|tenants?|smokers in the (?:home|house))\b/i;
 const PATTERNS: [string, RegExp][] = [['Never smoker', NEVER], ['Non-smoker', NON_SMOKER], ['Former smoker', FORMER], ['Current smoker', CURRENT]];
 
@@ -585,11 +628,12 @@ function smokingDocument(ctx: Ctx): Result {
     let unclear: string | null = null;
     for (const s of sentences(doc.text)) {
       if (!SMOKE_TOPIC.test(s.text)) continue;
+      if (OFF_TOPIC.test(s.text) && !/\b(tobacco|cigarettes?|smoking status|smoker)\b/i.test(s.text)) continue;
       for (const c of clauses(s.text)) {
         // A conjunction does not introduce a new patient subject by itself.
         if (THIRD_PARTY.test(s.text) && !/\b(patient|he|she|they)\b/i.test(c)) continue;
         const core = c.replace(PACK_YEARS, ' '); // pack-years describe the past, not the status
-        if (!SMOKE_TOPIC.test(core) || THIRD_PARTY.test(c) || OFF_TOPIC.test(c)) continue;
+        if ((!SMOKE_TOPIC.test(core) && !/^quit\s+(?:in\s+)?(?:19|20)\d{2}$/i.test(core.trim())) || THIRD_PARTY.test(c) || OFF_TOPIC.test(c)) continue;
         if (NOT_STATUS.test(c)) continue;
         if (PAST_CONTEXT.test(c) && !FORMER.test(core) && !NEVER.test(core)) continue; // "previously 1 ppd": history, not status
         if (isHedged(c)) { unclear = `hedged statement in ${doc.doc_id} ("${c}")`; continue; }
@@ -622,3 +666,4 @@ export function controlEvidence(ctx: Ctx): Result {
     ? 'physician-only judgement; the cited sentences are the most recent statements about asthma control on inhaled corticosteroid'
     : 'physician-only judgement; no statement about asthma control found to cite');
 }
+

@@ -1,0 +1,13 @@
+{"chart":"X-hand","form_date":"2026-11-15","fields":{
+ "patient_name":{"status":"DRAFTED","value_includes":["example","sam"],"cite_any_of":["demographics"]},
+ "phn":{"status":"DRAFTED","value_equals":"SYNTH-PHN-0077","cite_any_of":["demographics"]},
+ "date_of_birth":{"status":"DRAFTED","value_equals":"1990-01-05","cite_any_of":["demographics"]},
+ "diagnosis":{"status":"DRAFTED","value_includes":["severe eosinophilic asthma"],"cite_any_of":["X01"]},
+ "respirologist_confirmed_within_24_months":{"status":"DRAFTED","value_equals":true,"cite_any_of":["X01"]},
+ "blood_eosinophils_most_recent":{"status":"DRAFTED","value_includes":["0.38","2026-05-29"],"value_excludes":["2026-06-01"],"cite_any_of":["X07"]},
+ "systemic_steroid_courses_past_12_months":{"status":"DRAFTED","value_equals":2,"cite_any_of":["X04","X05"]},
+ "current_inhaled_therapy":{"status":"DRAFTED","value_includes":["breo"],"value_excludes":["prednisone"],"cite_any_of":["X08"]},
+ "prior_biologic_trial":{"status":"DRAFTED","value_includes":["2025-03-01","2025-09-15","persistent exacerbations"],"cite_any_of":["X02","X03"]},
+ "smoking_status":{"status":"DRAFTED","value_includes":["never"],"value_excludes":["current"],"cite_any_of":["X01"]},
+ "inadequate_control_despite_high_dose_ics":{"status":"NEEDS_PHYSICIAN"},
+ "requested_dose_regimen":{"status":"NEEDS_PHYSICIAN"}}}

@@ -1,0 +1,97 @@
+{
+  "chart": "B6-attribution",
+  "form_date": "2026-11-15",
+  "fields": {
+    "patient_name": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_includes": [
+        "synthetic",
+        "taylor"
+      ]
+    },
+    "phn": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "SYNTH-PHN-0606"
+    },
+    "date_of_birth": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "1988-12-03"
+    },
+    "diagnosis": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B608",
+        "B602"
+      ],
+      "value_includes": [
+        "severe asthma"
+      ]
+    },
+    "respirologist_confirmed_within_24_months": {
+      "status": "NOT_DOCUMENTED"
+    },
+    "blood_eosinophils_most_recent": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B605"
+      ],
+      "value_includes": [
+        "0.35",
+        "2026-02-27"
+      ],
+      "value_excludes": [
+        "0.9",
+        "12%"
+      ]
+    },
+    "systemic_steroid_courses_past_12_months": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B606"
+      ],
+      "value_equals": 1
+    },
+    "current_inhaled_therapy": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B610"
+      ],
+      "value_includes": [
+        "200/25"
+      ],
+      "value_excludes": [
+        "100/25"
+      ]
+    },
+    "prior_biologic_trial": {
+      "status": "NOT_DOCUMENTED"
+    },
+    "smoking_status": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B601"
+      ],
+      "value_includes": [
+        "2010"
+      ],
+      "value_excludes": [
+        "current"
+      ]
+    },
+    "inadequate_control_despite_high_dose_ics": {
+      "status": "NEEDS_PHYSICIAN"
+    },
+    "requested_dose_regimen": {
+      "status": "NEEDS_PHYSICIAN"
+    }
+  }
+}

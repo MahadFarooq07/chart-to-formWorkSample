@@ -1,0 +1,86 @@
+[
+  {
+    "doc_id": "B101",
+    "date": "2024-08-14",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "RESPIROLOGY CONSULTATION\nReason for referral: uncontrolled asthma.\nHx: Ex-smoker, quit 2015, 20 pack-years.\nPFTs: FEV1 58% predicted, 18% post-BD reversibility.\nImpression: Severe asthma, eosinophilic phenotype.\nPlan: Start mepolizumab 100 mg SC q4wk once approved."
+  },
+  {
+    "doc_id": "B102",
+    "date": "2024-10-02",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Mepolizumab first dose given 2024-10-01. Tolerated well."
+  },
+  {
+    "doc_id": "B103",
+    "date": "2025-04-22",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Follow-up. Mepolizumab d/c'd 2025-04-01 due to no reduction in exacerbations and persistent OCS need."
+  },
+  {
+    "doc_id": "B104",
+    "date": "2025-07-09",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Telehealth follow-up. Diagnosis: severe eosinophilic asthma, confirmed. Continue Trelegy."
+  },
+  {
+    "doc_id": "B105",
+    "date": "2025-11-03",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "S: 4d worse SOB, wheeze after cold. O: diffuse wheeze, SpO2 93%. A: Asthma exacerbation. P: Prednisone 50 mg PO daily x5d."
+  },
+  {
+    "doc_id": "B106",
+    "date": "2025-11-28",
+    "type": "ed_note",
+    "author_role": "emergency_physician",
+    "text": "Dx: acute exacerbation of asthma. Tx: salbutamol/ipratropium nebs x3, methylprednisolone 125 mg IV. D/C on prednisone 50 mg daily x 4 days."
+  },
+  {
+    "doc_id": "B107",
+    "date": "2026-02-14",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "A: Allergic reaction to amoxicillin, hives. P: prednisone 40 mg x5d, cetirizine. Chest clear."
+  },
+  {
+    "doc_id": "B108",
+    "date": "2026-05-30",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "A: Asthma exacerbation triggered by wildfire smoke. P: Prednisone 40 mg daily x5d."
+  },
+  {
+    "doc_id": "B109",
+    "date": "2026-06-16",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "CBC + diff\nCollected: 2026-06-15 08:12\nWBC 8.1 x10^9/L\nEosinophils 0.52 x10^9/L\nReported: 2026-06-16 14:40"
+  },
+  {
+    "doc_id": "B110",
+    "date": "2026-09-02",
+    "type": "medication_list",
+    "author_role": "pharmacy",
+    "text": "PharmaNet profile (active):\n- Trelegy Ellipta 200/62.5/25 mcg 1 inh daily\n- Ventolin HFA 100 mcg 1-2 puffs q4h PRN\n- Rosuvastatin 10 mg daily"
+  },
+  {
+    "doc_id": "B111",
+    "date": "2026-09-20",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Smoking: ex-smoker, quit 2015. Wife smokes outside."
+  },
+  {
+    "doc_id": "B112",
+    "date": "2026-10-05",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Drug Z special authority requested. Chart was previously filed under PHN SYNTH-PHN-0110 in error; merged."
+  }
+]

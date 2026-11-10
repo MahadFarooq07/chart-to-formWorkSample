@@ -1,0 +1,65 @@
+[
+  {
+    "doc_id": "C401",
+    "date": "2025-05-05",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Benralizumab started 2024-06-01. Stopped 2025-04-01 due to patient preference (needle phobia)."
+  },
+  {
+    "doc_id": "C402",
+    "date": "2026-01-10",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Impression: severe asthma. Differential includes EGPA; ANCA pending."
+  },
+  {
+    "doc_id": "C403",
+    "date": "2026-02-02",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Asthma exacerbation. Prednisone 40 mg daily x 5 days prescribed; patient chose not to fill it."
+  },
+  {
+    "doc_id": "C404",
+    "date": "2026-03-15",
+    "type": "ed_note",
+    "author_role": "emergency_physician",
+    "text": "Asthma exacerbation. Prednisone 50 mg x5d started in ED."
+  },
+  {
+    "doc_id": "C405",
+    "date": "2026-04-01",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Prednisone course for asthma exacerbation completed 2026-03-20. Doing well."
+  },
+  {
+    "doc_id": "C406",
+    "date": "2026-05-05",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Collected 2026-05-04. Eosinophils 0.3 x10^9/L."
+  },
+  {
+    "doc_id": "C407",
+    "date": "2026-07-07",
+    "type": "medication_list",
+    "author_role": "pharmacy",
+    "text": "Active medications: Advair 250/50 1 puff BID; Ventolin 100 mcg PRN."
+  },
+  {
+    "doc_id": "C408",
+    "date": "2026-08-08",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Advair changed to Symbicort 200/6 2 puffs BID by respirology."
+  },
+  {
+    "doc_id": "C409",
+    "date": "2026-09-09",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Quit smoking 2 weeks ago; using nicotine patch."
+  }
+]

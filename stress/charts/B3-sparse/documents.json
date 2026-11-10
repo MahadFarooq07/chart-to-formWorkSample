@@ -1,0 +1,44 @@
+[
+  {
+    "doc_id": "B301",
+    "date": "2026-02-02",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Wheeze and cough for 3 weeks. Possible asthma vs post-viral cough. Referred to respirology. Advised to try salbutamol if wheeze persists."
+  },
+  {
+    "doc_id": "B302",
+    "date": "2026-04-10",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Respirology consult. Spirometry normal; methacholine challenge booked. Asthma not yet confirmed."
+  },
+  {
+    "doc_id": "B303",
+    "date": "2026-05-01",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "CBC with differential. Collected 2026-04-30. Eosinophils: pending."
+  },
+  {
+    "doc_id": "B304",
+    "date": "2026-06-12",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Patient asks about biologics such as Dupixent; discussed, not started."
+  },
+  {
+    "doc_id": "B305",
+    "date": "2026-07-01",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Social: lives with a roommate who smokes. Patient's own smoking status not asked today."
+  },
+  {
+    "doc_id": "B306",
+    "date": "2026-08-20",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Cough worse. Considered prednisone but held off; will reassess in one week."
+  }
+]

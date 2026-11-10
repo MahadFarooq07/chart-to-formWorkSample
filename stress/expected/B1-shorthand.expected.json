@@ -1,0 +1,116 @@
+{
+  "chart": "B1-shorthand",
+  "form_date": "2026-11-15",
+  "fields": {
+    "patient_name": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_includes": [
+        "doe-synthetic",
+        "riley"
+      ]
+    },
+    "phn": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "SYNTH-PHN-0101"
+    },
+    "date_of_birth": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "1968-11-30"
+    },
+    "diagnosis": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B104",
+        "B101"
+      ],
+      "value_includes": [
+        "severe",
+        "asthma"
+      ],
+      "value_excludes": [
+        "moderate"
+      ]
+    },
+    "respirologist_confirmed_within_24_months": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B104"
+      ],
+      "value_equals": true
+    },
+    "blood_eosinophils_most_recent": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B109"
+      ],
+      "value_includes": [
+        "0.52",
+        "2026-06-15"
+      ],
+      "value_excludes": [
+        "2026-06-16"
+      ]
+    },
+    "systemic_steroid_courses_past_12_months": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B106",
+        "B108"
+      ],
+      "value_equals": 2
+    },
+    "current_inhaled_therapy": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B110"
+      ],
+      "value_includes": [
+        "trelegy"
+      ],
+      "value_excludes": [
+        "rosuvastatin",
+        "prednisone"
+      ]
+    },
+    "prior_biologic_trial": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B102",
+        "B103"
+      ],
+      "value_includes": [
+        "mepolizumab",
+        "2024-10-01",
+        "2025-04-01"
+      ]
+    },
+    "smoking_status": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "B111",
+        "B101"
+      ],
+      "value_includes": [
+        "2015"
+      ],
+      "value_excludes": [
+        "current"
+      ]
+    },
+    "inadequate_control_despite_high_dose_ics": {
+      "status": "NEEDS_PHYSICIAN"
+    },
+    "requested_dose_regimen": {
+      "status": "NEEDS_PHYSICIAN"
+    }
+  }
+}

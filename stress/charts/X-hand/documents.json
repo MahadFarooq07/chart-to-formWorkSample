@@ -1,0 +1,11 @@
+[
+ {"doc_id":"X01","date":"2024-12-01","type":"consult_letter","author_role":"respirologist","text":"Consult note. Assessment: Severe eosinophilic asthma, GINA step 5. Pt is a never smoker."},
+ {"doc_id":"X02","date":"2025-03-01","type":"consult_letter","author_role":"respirologist","text":"Started Fasenra 30 mg q8w on 2025-03-01."},
+ {"doc_id":"X03","date":"2025-10-01","type":"consult_letter","author_role":"respirologist","text":"Benralizumab stopped 2025-09-15 owing to persistent exacerbations."},
+ {"doc_id":"X04","date":"2025-11-20","type":"clinic_note","author_role":"family_physician","text":"Acute asthma exacerbation. Started on prednisone 50 mg PO daily x 5d."},
+ {"doc_id":"X05","date":"2026-01-10","type":"clinic_note","author_role":"urgent_care_physician","text":"Asthma flare. Prednisolone 40 mg for 5 days."},
+ {"doc_id":"X06","date":"2026-03-15","type":"clinic_note","author_role":"family_physician","text":"Acute bronchitis. Prednisone 40 mg x 5 days. Lungs otherwise clear."},
+ {"doc_id":"X07","date":"2026-06-01","type":"lab_report","author_role":"laboratory","text":"CBC with differential\nCollection date: 2026-05-29\nReported: 2026-06-01\nEosinophils ........ 0.38 x10^9/L"},
+ {"doc_id":"X08","date":"2026-09-01","type":"medication_list","author_role":"pharmacy","text":"Active Rx: Breo Ellipta 200/25 mcg 1 inh daily; Ventolin HFA 100 mcg 2 puffs q4h prn; Prednisone 5 mg daily (completed)"},
+ {"doc_id":"X09","date":"2026-10-01","type":"clinic_note","author_role":"family_physician","text":"Social history: husband smokes outdoors. Lives with spouse who vapes."}
+]

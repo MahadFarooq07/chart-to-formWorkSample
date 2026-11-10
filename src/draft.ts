@@ -1,4 +1,4 @@
-// Codex co-op work sample: cited form drafter. Offline, deterministic, rule-based.
+// cited-form co-op work sample: cited form drafter. Offline, deterministic, rule-based.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { Citation, Ctx, Demographics, Doc, FieldDraft, Form, FormField, Result, needsPhysician, notDocumented } from './types.js';
@@ -50,10 +50,25 @@ export function demographicsText(demo: Demographics): string {
 }
 
 /** Last line of defence: a draft whose quotes are not verbatim in their source is withdrawn. */
-export function verify(r: Result, textOf: Map<string, string>): Result {
+export function verify(r: Result, textOf: Map<string, string>, field?: FormField): Result {
   const ok = (c: Citation) => typeof c.quote === 'string' && c.quote.trim() !== '' && !!textOf.get(c.doc_id)?.includes(c.quote);
   const all = [...r.citations, ...(r.computation?.inputs ?? [])];
+  if (field && ['OPINION_PHYSICIAN', 'PHYSICIAN_ENTERED'].includes(field.class))
+    return needsPhysician(r.citations.filter(ok), r.note);
   if (r.status === 'DRAFTED') {
+    if (field) {
+      const v = r.value;
+      const validType = field.answer_type === 'boolean' ? typeof v === 'boolean'
+        : field.answer_type === 'integer' ? typeof v === 'number' && Number.isInteger(v)
+        : field.answer_type === 'number' ? typeof v === 'number' && Number.isFinite(v)
+        : field.answer_type === 'date' ? typeof v === 'string' && isIsoDate(v)
+        : field.answer_type === 'text' ? typeof v === 'string' && !!v.trim() : false;
+      if (!validType) return notDocumented('withdrawn by the verifier: value does not match the field answer type');
+      if (all.some(c => (c.doc_id === 'demographics') !== (field.class === 'DEMOGRAPHIC')))
+        return notDocumented('withdrawn by the verifier: citation source is not permitted for this field class');
+      if (field.class === 'COMPUTED_CITED' && (!r.computation?.rule.trim() || !r.computation.inputs.length))
+        return notDocumented('withdrawn by the verifier: computation needs a rule and cited inputs');
+    }
     if (!r.citations.length) return notDocumented('withdrawn by the verifier: drafted without a citation');
     const badCite = all.find((c) => !ok(c));
     if (badCite) return notDocumented(`withdrawn by the verifier: quote not found verbatim in ${badCite.doc_id}`);
@@ -95,7 +110,7 @@ export function draftForm(form: Form, docs: Doc[], demographics: Demographics, o
     let r: Result;
     try { r = unusableReason && !['DEMOGRAPHIC', 'PHYSICIAN_ENTERED', 'OPINION_PHYSICIAN'].includes(field.class)
       ? notDocumented(unusableReason) : draftField(field, ctx); } catch (e) { r = notDocumented(`extractor crashed (${(e as Error).message}); a crash abstains, never guesses`); }
-    const { note, ...rest } = verify(r, textOf);
+    const { note, ...rest } = verify(r, textOf, field);
     const out: FieldDraft = { field_id: field.field_id, ...rest };
     if (opts.explain && note) out.note = note;
     return out;

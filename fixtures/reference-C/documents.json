@@ -1,0 +1,14 @@
+[
+  {"doc_id": "C01", "date": "2024-03-01", "type": "consult_letter", "author_role": "respirologist",
+   "text": "Respirology consult. Impression: severe eosinophilic asthma. Would consider benralizumab if control remains poor. Mother and brother both smoke in the home."},
+  {"doc_id": "C02", "date": "2025-02-10", "type": "clinic_note", "author_role": "family_physician",
+   "text": "Seen by respirology last year who confirmed severe eosinophilic asthma. Query asthma-COPD overlap given smoking exposure. Discontinued budesonide/formoterol because of thrush."},
+  {"doc_id": "C03", "date": "2026-01-15", "type": "clinic_note", "author_role": "family_physician",
+   "text": "Gout flare right knee. Prednisone 30 mg daily for 5 days. Asthma stable."},
+  {"doc_id": "C04", "date": "2026-04-02", "type": "clinic_note", "author_role": "family_physician",
+   "text": "Has needed several courses of prednisone this past year for his chest. Eosinophils 7% on last CBC. Dupilumab for atopic dermatitis started 2026-03-01 by dermatology."},
+  {"doc_id": "C05", "date": "2026-08-09", "type": "lab_report", "author_role": "laboratory",
+   "text": "Complete blood count. Eosinophils 0.52 x10^9/L."},
+  {"doc_id": "C06", "date": "2026-09-01", "type": "ed_note", "author_role": "emergency_physician",
+   "text": "Allergic reaction to shellfish with hives. Prednisone 50 mg daily for 3 days. No wheeze; asthma not active."}
+]

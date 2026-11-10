@@ -1,0 +1,72 @@
+[
+  {
+    "doc_id": "B201",
+    "date": "2023-01-10",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Dear Dr. Lee, thank you for referring Ms. Okafor. She has had asthma since childhood. She has never smoked. Spirometry today confirms variable airflow obstruction. My impression is of severe allergic asthma. I have recommended omalizumab."
+  },
+  {
+    "doc_id": "B202",
+    "date": "2023-03-02",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Ms. Okafor received her first omalizumab (Xolair) injection on March 1, 2023."
+  },
+  {
+    "doc_id": "B203",
+    "date": "2023-11-15",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Xolair was discontinued on October 30, 2023 because of an anaphylactoid reaction after her ninth dose."
+  },
+  {
+    "doc_id": "B204",
+    "date": "2025-03-18",
+    "type": "consult_letter",
+    "author_role": "respirologist",
+    "text": "Dear Dr. Lee, I saw Ms. Okafor again today. Diagnosis: severe eosinophilic asthma, confirmed on repeat spirometry and blood eosinophils."
+  },
+  {
+    "doc_id": "B205",
+    "date": "2025-12-01",
+    "type": "ed_note",
+    "author_role": "emergency_physician",
+    "text": "Presented with an asthma attack. Treated with salbutamol and discharged on prednisone 50 mg daily for five days."
+  },
+  {
+    "doc_id": "B206",
+    "date": "2026-01-05",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Seen in follow-up after her ED visit on December 1. She completed the prednisone and feels back to baseline."
+  },
+  {
+    "doc_id": "B207",
+    "date": "2026-03-22",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Her asthma flared again with influenza A. Prednisone 40 mg daily for 7 days and oseltamivir prescribed."
+  },
+  {
+    "doc_id": "B208",
+    "date": "2026-07-30",
+    "type": "lab_report",
+    "author_role": "laboratory",
+    "text": "Specimen collected 2026-07-28. Eosinophil count: 0.31 x10^9/L."
+  },
+  {
+    "doc_id": "B209",
+    "date": "2026-08-11",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Rheumatology started prednisone 10 mg daily for polymyalgia rheumatica. Asthma stable."
+  },
+  {
+    "doc_id": "B210",
+    "date": "2026-10-02",
+    "type": "clinic_note",
+    "author_role": "family_physician",
+    "text": "Current inhalers: Symbicort 200/6 mcg two puffs twice daily. She stopped Flovent in the spring. Her daughter vapes."
+  }
+]

@@ -23,39 +23,76 @@ const traps: [string, string, Doc[]][] = [
   ['same-day smoking conflict', 'smoking_status', [doc('Patient never smoked.', 'R1'), doc('Patient currently smokes.', 'R2')]],
   ['inherited relative subject', 'smoking_status', [doc('Mother has asthma and smokes daily.')]],
 ];
-for (const [name, id, docs] of traps) test(`review: abstains on ${name}`, () => {
+for (const [name, id, docs] of traps) test(`abstains on ${name}`, () => {
   assert.equal(result(id, docs).status, 'NOT_DOCUMENTED');
 });
 
-test('review: duplicate document IDs cannot ambiguously ground a draft', () => {
+test('duplicate document IDs cannot ambiguously ground a draft', () => {
   assert.equal(result('smoking_status', [doc('Patient never smoked.'), doc('Patient currently smokes.')]).status, 'NOT_DOCUMENTED');
 });
-test('review: invalid form date cannot enable unrestricted document dates', () => {
+test('invalid form date cannot enable unrestricted document dates', () => {
   assert.equal(result('smoking_status', [doc('Patient currently smokes.')], { ...form, form_date: 'invalid' }).status, 'NOT_DOCUMENTED');
 });
-test('review: unrelated newer notes do not erase an explicit smoking status', () => {
+test('unrelated newer notes do not erase an explicit smoking status', () => {
   const r = result('smoking_status', [doc('Patient never smoked.', 'R1', '2026-09-01'), doc('Mother smokes.', 'R2')]);
   assert.equal(r.status, 'DRAFTED');
   assert.match(String(r.value), /Never smoker/);
 });
 
-test('review: malformed input containers and duplicate field IDs fail explicitly', () => {
+test('malformed input containers and duplicate field IDs fail explicitly', () => {
   assert.throws(() => draftForm(form, {} as Doc[], {}), /array/);
   assert.throws(() => draftForm(form, [], null as never), /object/);
   assert.throws(() => draftForm({ ...form, fields: [form.fields[0], form.fields[0]] }, [], {}), /uniquely/);
 });
-test('review: unusable chart identity preserves physician gating and demographics', () => {
+test('unusable chart identity preserves physician gating and demographics', () => {
   const fields = draftForm(form, [doc('Patient smokes.', 'demographics')], { phn: 'SYNTH-PHN-1234' });
   assert.equal(fields.find(f => f.field_id === 'phn')!.value, 'SYNTH-PHN-1234');
   assert.equal(fields.find(f => f.field_id === 'requested_dose_regimen')!.status, 'NEEDS_PHYSICIAN');
   assert.equal(fields.find(f => f.field_id === 'smoking_status')!.status, 'NOT_DOCUMENTED');
 });
-test('review: same-day conflict is independent of document order and ID ordering', () => {
+test('same-day conflict is independent of document order and ID ordering', () => {
   const docs = [doc('Patient never smoked.', 'Z'), doc('Patient currently smokes.', 'A')];
   for (const order of [docs, [...docs].reverse()]) assert.equal(result('smoking_status', order).status, 'NOT_DOCUMENTED');
 });
-test('review: CLI missing argument returns a concise failure and nonzero exit', () => {
+test('CLI missing argument returns a concise failure and nonzero exit', () => {
   const r = spawnSync(process.execPath, ['dist/draft.js', '--chart', '--form', 'form/F-DEMO-01.json'], { encoding: 'utf8' });
   assert.equal(r.status, 1);
   assert.match(r.stderr, /Draft failed: missing --chart/);
+});
+
+test('a relative named in the medication-list heading is not the patient', () => {
+  for (const type of ['clinic_note', 'medication_list']) {
+    const d = { ...doc('Mother medications: salbutamol 100 mcg as needed.'), type };
+    assert.equal(result('current_inhaled_therapy', [d]).status, 'NOT_DOCUMENTED');
+  }
+});
+
+test('social history after a pharmacy list does not erase the patient regimen', () => {
+  for (const separator of ['\n', '. ']) {
+    const d = { ...doc(`Active medications: salbutamol 100 mcg as needed${separator}Lives with wife and two kids.`), type: 'medication_list' };
+    const r = result('current_inhaled_therapy', [d]);
+    assert.equal(r.status, 'DRAFTED');
+    assert.equal(r.value, 'salbutamol 100 mcg as needed');
+    assert.deepEqual(r.citations, [{ doc_id: 'R1', quote: 'salbutamol 100 mcg as needed' }]);
+  }
+});
+
+test('a relative medication item is never included in the patient regimen', () => {
+  const d = { ...doc('Active medications: salbutamol 100 mcg as needed; mother uses Symbicort 200/6 mcg.'), type: 'medication_list' };
+  assert.equal(result('current_inhaled_therapy', [d]).status, 'NOT_DOCUMENTED');
+});
+
+test('unrelated social history does not erase a dated patient lab', () => {
+  const r = result('blood_eosinophils_most_recent', [doc('Lives with wife and two kids. Collected 2026-09-01. Eosinophils 0.45 x10^9/L.')]);
+  assert.equal(r.status, 'DRAFTED');
+  assert.equal(r.value, '0.45 x10^9/L (collected 2026-09-01)');
+});
+
+test('a below-detection result keeps its comparator and stays the most recent', () => {
+  const docs = [doc('Collected 2026-03-01. Eosinophils 0.70 x10^9/L.', 'L1', '2026-03-03'), doc('Collected 2026-07-05. Eosinophils <0.10 x10^9/L.', 'L2', '2026-07-07')];
+  assert.equal(result('blood_eosinophils_most_recent', docs).value, '<0.10 x10^9/L (collected 2026-07-05)');
+});
+
+test('"5 cigarettes/day" is a current smoking statement', () => {
+  assert.match(String(result('smoking_status', [doc('Smoking status: current, 5 cigarettes/day.')]).value), /^Current smoker/);
 });

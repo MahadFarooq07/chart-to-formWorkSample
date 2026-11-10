@@ -1,0 +1,53 @@
+{
+  "chart": "B3-sparse",
+  "form_date": "2026-11-15",
+  "fields": {
+    "patient_name": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_includes": [
+        "synthetic",
+        "casey"
+      ]
+    },
+    "phn": {
+      "status": "NOT_DOCUMENTED"
+    },
+    "date_of_birth": {
+      "status": "DRAFTED",
+      "cite_any_of": [
+        "demographics"
+      ],
+      "value_equals": "1991-04-09"
+    },
+    "diagnosis": {
+      "status": "NOT_DOCUMENTED"
+    },
+    "respirologist_confirmed_within_24_months": {
+      "status": "NOT_DOCUMENTED"
+    },
+    "blood_eosinophils_most_recent": {
+      "status": "NOT_DOCUMENTED"
+    },
+    "systemic_steroid_courses_past_12_months": {
+      "status": "NOT_DOCUMENTED"
+    },
+    "current_inhaled_therapy": {
+      "status": "NOT_DOCUMENTED"
+    },
+    "prior_biologic_trial": {
+      "status": "NOT_DOCUMENTED"
+    },
+    "smoking_status": {
+      "status": "NOT_DOCUMENTED"
+    },
+    "inadequate_control_despite_high_dose_ics": {
+      "status": "NEEDS_PHYSICIAN"
+    },
+    "requested_dose_regimen": {
+      "status": "NEEDS_PHYSICIAN"
+    }
+  }
+}
